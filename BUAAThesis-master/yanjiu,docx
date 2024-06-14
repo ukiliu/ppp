@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>基于机器学习的A公司企业客户信用评价研究</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<h1 id="绪论">绪论</h1>
+<h2 id="选题背景和意义">选题背景和意义</h2>
+<h3 id="选题的背景">选题的背景</h3>
+<p>随着全球性自由市场经济的迅速发展，企业的销售方式发生巨大的变化，由过去单一的计划客户转变为多元的信用销售为主。当企业产成品存货较多时，一般都采用较为优惠的信用条件进行销售，把存货转化为应收账款，减少产成品存货，节约相关的开支。然而，信用销售起到促进销售的同时，也会给企业在偿债能力以及应收账款的管理和现金流方面带来很大的挑战，稍有管理不善就容易因客户不能还款而导致坏账发生。因此，加强对客户的客户信用管理显得越来越重要。</p>
+<p>信用评级是用于衡量企业信用风险的工具，是作为企业商业活动或是在金融市场上的重要参考指标。通过评估企业的等级，可以了解该企业的信用质量和偿还能力。客户信用评级是企业为了有效控制客户信用风险，实现信贷资金的安全性、流动性和收益性。</p>
+<p>A公司目前上千家客户，覆盖全球众多国家及地区，客户信用质量关系到企业经营成败，所以需要密切关注客户的信用状况，并采取相应的客户信用等级评价措施来实时掌握客户的信用状况，制定相应的还款账期，来降低逾期还款风险、保护企业的利益。</p>
+<h3 id="选题的意义">选题的意义</h3>
+<p>客户信用评级下降，意味着客户的偿付能力可能会降低，企业可能面临逾期付款或坏账的风险，从而对企业的财务状况产生不利影响。通过合理的信用风险评级，不仅可以得到客户信用等级的排序，为公司进行业务来往提供决策参考;还能确定每个信用等级贷款客户的违约损失率大小，为公司对每个客户的贷款额度的设定提供依据。对与公司来说，客户信用评价的意义，具体可以表现为以下几个方面：</p>
+<p>1、风险控制。客户信用评价可以帮助企业识别潜在的信用风险客户，包括那些可能逾期付款或违约的客户，从而帮助企业提前采取风险控制措施，避免与高风险客户进行交易，从而降低逾期付款和坏账损失的发生。同时能帮助企业制定相应的风险管理策略，包括建立合理的信用额度、采取灵活的付款方式等，避免过度放宽信用条件，从而提高资金利用效率。</p>
+<p>2.、收益提升。客户信用评价可以帮助企业识别高质量的客户，从而优化客户选择，帮助企业建立更加稳定的合作关系；通过信用评价也可以帮助企业了解客户的信用状况和偏好，从而优化销售策略，制定更加精准的营销计划，提高销售收入和市场份额。</p>
+<p>3、决策支持。客户信用评价可以帮助企业根据客户的信用状况和历史付款记录，制定合理的信用额度和付款条件。
+4、
+管理优化：企业可以建立完善的客户信用评价体系，引入自动化的客户信用评价流程，提高评价效率，减少人为因素的干扰，确保评价结果的客观性和一致性。</p>
+<p>通过以上方式，企业可以实现对客户信用评价的管理优化，提高评价的准确性和效率，降低信用风险，同时更好地支持企业的决策和运营，提高客户满意度和忠诚度，从而增强企业的竞争力。</p>
+<h2 id="国内外研究现状">国内外研究现状</h2>
+<h3 id="国内相关研究现状">国内相关研究现状</h3>
+<p>在信用评价指标体系选择研究方面，对企业或者客户信用评价的研究上，一般是基于财务或者非财务的指。霍思彤、郑新毅(2022)根据合作企业特点，从财务指标和非财务指标两个维度设计7个一级指标和25个二级指标，采用专家打分和层次分析法确定每个指标的权重，建立起6级信用等级体系。宋永明、胡君（2021）基数据的可获得性、低相关性以及全面性等考虑，借鉴已有研究选取了基于企业的偿债能力、经营能力、盈利能力、发展能力四个方面共13项指标构成中小企业信用评价指标体系<span
+class="citation"
+data-cites="XDBY202105045"></span>。徐德顺，马凡慧，寇明珠（2021）基于复杂系统理论和三重积分原理，从主观履约意愿、客观履约能力及外部履约环境三个维度设计指标体系，构建WCE三维信用评价模型，将企业信用评价拓展至三维空间内<span
+class="citation" data-cites="HNJG202110005"></span>。李晓寒（2021）基于
+Kisgen 的研究方法，利用公司内部财务信息建立 CR-CS
+模型（信用评级—资本结构模型），对中国信用评级是否会影响非金融上市公司的资本结构展开研究<span
+class="citation" data-cites="TJLS202101009"></span>。</p>
+<p>罗勇，陈治亚（2015）基于模糊综合法构建了供应链金融客户信用评价指标体系。通过对供应链金融进行信用风险分析，确定了信用评价指标体系和评价标准。采用实例验证了评价指标体系的计算结果。该指标体系由客户企业信用、供应链信用和客户企业所在地信用状况等3个一级指标构成，其中客户信用状况包括4个二级指标，供应链信用状况包括等4个二级指标，地区信用状况包括2个二级指标，共计10个二级指标；采用专家咨询法结合层次分析法确定了指标权重和评价标准<span
+class="citation"
+data-cites="CKYK201514008"></span>。何亚男（2018）在财务变量基础上，又加上企业规模、所属行业及所在经济区域等指标，此外还将企业所属地区的宏观经济指标，如地区生产总值、人均消费指数等纳入模型<span
+class="citation" data-cites="1018210990.nh"></span>。</p>
+<p>在信用评价模型构建方面，模型是多样化的，不同的模型针对特定的评估需求和应用场景进行设计，采用独特的评估方法和技术。有基于统计学的信用评价模型、基于机器学习的信用评价模型，还有一些针对特定行业的信用评价模型。周颖，张志鹏（2023）提出了新的信用等级划分约束条件,确保违约企业更多分布在较低等级,改变了现有研究将违约企业更多划分在较高等级的不合理现象。通过巴塞尔协议关于预期损失与违约风险暴露、违约概率、违约损失率的关系,近似得出上市公司的预期损失,给出了解决上市公司缺乏违约损失数据的方法<span
+class="citation"
+data-cites="ZWGD202305001"></span>。姚定俊、顾越、陈威（2023）从中小微企业的基本情况出发，建立有针对性的信用风险评价指标体系;
+从财务风险的视角选取财务指标,并创新性地将中小微企业管理层特征纳入信用风险指标体系。选用
+SVM 作为违约风险估计的基础模型，以ＲF算法筛选指标体系来提升 SVM
+模型的分类能力。在参数寻优上，初步考虑使用 SMA
+算法，并对SMA进行改进，最终形成RF-LSMA-SVM模型进行中小微企业信用风险评价，进一步提升了信用风险判定的准确性和实用性<span
+class="citation"
+data-cites="GHZJ202307010"></span>。华泰证券固定收益部课题组（2023）将大数据、人工智能等技术引入信用评价与投资管理领域，通过多源数据融合方案和数据自动化校验，提高数据质量。在获取数据的基础上，构建智能信用评价模型动态评估发债主体和交易对手的信用情况，提升金融机构的风险管控能力。信用评价模型开发需经过建模准备、单因素分析、多因素分析、回归模型建立和验证五个步骤<span
+class="citation" data-cites="JRZH202305008"></span>。</p>
+<p>阳彩霞、阳平华、何杰（2022）采用BP神经网络的数据挖掘算法建立一个供应商信用评价模型，在测试数据集基础上采用混淆矩阵对模型进行检验，该模型的准确度高达百分之96.7<span
+class="citation" data-cites="GXQG202204017"></span>。刘英杰、李光、
+马锐鑫（2022）针对当前工程监理市场存在的企业失信、恶意竞争、违规投标等信用缺失现象，结合工程监理行业的发展，构建了一套有效合理的工程监理企业信用评价指标体系，并结合实例分析，采用
+AHP
+和改进灰色关联模型的方法对其信用指标进行赋权，进而确定工程监理企业的信用评价等级<span
+class="citation"
+data-cites="XMGJ202206004"></span>。任向英（2022）针对中小企业经营中的信用风险，提出灰色聚类评估方法，重点分析该评估法的原理与应用方式，并结合实证分析，评估中小企业的信用情况<span
+class="citation" data-cites="JMDB202205040"></span>。</p>
+<p>杨莲、石宝峰、董轶哲（2022）利用
+ClassBalancedLoss中的平衡因子ω弥补交叉熵函数无法调节两类样本损失权重的缺陷，克服由样本不均衡带来的评价模型对非违约样本识别过度、对违约样本识别不足。并通过考虑数据重叠，利用随机覆盖方法进行不放回采样，将图像识别领域中的ClassBalancedLoss函数引入信用评价领域<span
+class="citation"
+data-cites="XTGL202202005"></span>。董秉坤，郑陈柔雨，原源，李嘉媛（2022）研究基于AHP-熵值组合赋权法的零售户信用评价模型。该模型采用主观赋权法（AHP）和客观赋权法（熵权法）相结合的组合赋权方法，以弥补单一赋权带来的不足，力求将主观随机性控制在一定范围内，确保主客观赋权中的中正，实现了零售户信用的定性和定量评估的有效结合<span
+class="citation" data-cites="ZGYB202305013"></span>。王灿（2022）运用
+EasyEnsemble 方法解决信用数据集不平衡问题，再通过非对称误差成本的核
+SVM、逻辑斯蒂回归、带有距离加权的KNN 算法以及 C5.0算法的决策树的 Bagging
+集成得到个人组合评价模型<span class="citation"
+data-cites="XPJX202218004"></span>。郭鑫（2022），提出层次分析法的科研信用评价模型。采用空间分布式信息重构方法进行科研信用评价的模糊特征重组，进行科研信用多元评价的信息挖掘和特征提取与进行科研信用评价的均衡配置和线性规划设计，实现科研信用评价的层次化分析和特征重建。采用二乘规划模型进行科研信用评价的大数据调度和模糊空间信息采样，结合资源优化调度方法，实现科研信用资源信息优化配置，通过博弈均衡控制方法，进行科研信用的优化评价和参数自适应评估<span
+class="citation"
+data-cites="ZDHJ202202038"></span>。刘翠玲、胡聪、王鹏、洪德华、张庭曾（2022）构建了一种基于XGB算法的客户多维信用评价模型，并基于特征重要度方法进行特征选择，采用极限梯度提升方法以及树模型对客户信用进行模型构建，计算不同节点上不同的增益值来获取最佳的预测效果，从而构建一个准确、稳定的客户信用评价模型<span
+class="citation" data-cites="XNND202206020"></span>。</p>
+<p>叶怡汝（2020）运用层次分析法构建客户信用评价指标体系并计算权重，利用模糊综合评价法确定信用分值，并对如何选择承保客户给出参考<span
+class="citation"
+data-cites="1020060969.nh"></span>。黄宇（2020）用熵权法弥补以往BP神经网络主观赋权存在的缺陷，将机器学习方法运用到互联网金融领域，结合互联网金融
+P2P
+网贷的特点，建立适用于互联网金融发展的风险识别模型，用该模型来评估借款人的信用风险。采用将熵权法和
+BP 神经网络结合的方式搭建信用评价模型<span class="citation"
+data-cites="1021039149.nh"></span>。程砚秋，徐占东（2019），借鉴
+ELECTREIII的评价原理，计算新增贷款客户的信用风险评价得分。以违约、非违约样本加权后的组内差异程度为基础，确定ELECTREIII的否决阈值；反映了不同评价指标数据差异大小对评价结果的影响，避免了现有阈值人为主观确定的不足<span
+class="citation"
+data-cites="ZGGK201910003"></span>。郑晓杰、王双（2019）采用德尔菲法、层次分析法、指数分析法、模糊综合分析相结合的方式，针对M银行对中小型企业客户的信用评价进行模型构建，并建立起一套科学、可行的中小企业信用评价体系<span
+class="citation" data-cites="XDBY201932055"></span>。
+潘明道等(2018)通过样本中所有指标标准化数据的线性加权和来计算Fisher得分,建立了Fisher判别模型。比较对不同指标组合之间进行
+Fisher 判别得到的违约状态的鉴别精度，以剔除违约鉴别能力较小的指标<span
+class="citation"
+data-cites="1016286939.nh"></span>。赵志冲、迟国泰(2017)通过对比只含有某一个指标的完整模型的对数似然值和只含常数项的零模型的对数似然值确定统计量,构造了某一特定指标与违约状态之间的逻辑回归方程。比较在有无某指标时的两个对数似然值之间的差。最终建立了包括超速动比率、近三年企业授信情况、城市居民人均可支配收入等
+16 个指标的小企业信用风险评价指标<span class="citation"
+data-cites="XTLL201710005"></span>。温小霓，韩鑫蕊（2017）针对科技型中小企业，首先建立了一个多层次的信用风险评价指标体系，并利用ｔ检验和因子分析对指标体系进行简化和降维，然后在此基础上构建基于MLP神经网络的科技型中小企业信用风险评价模型<span
+class="citation" data-cites="CYYK201712028"></span>。</p>
+<h3 id="国外相关研究现状">国外相关研究现状</h3>
+<p>在信用评价指标体系选择研究方面，基于信用得分或违约概率的信用等级划分。Pranith
+Kumar
+Roy（2023）研究提出了一个易于实施的ESG信用评级模型，它考虑了ESG和财务表现来填补现有的研究空白，提高了整体经济能力，同时最小化环境、社会和治理风险<span
+class="citation" data-cites="Roy_Shaw_2023"></span>。Duan 和 Li
+基于上市公司违约概率(PD)将上市公司划分为 AAA、AA+等 21 个等级<span
+class="citation" data-cites="Duan_Li_2021"></span>。 Serano-Cinca C. 和
+Cutierrez-Nieto B 基于企业的 FICO分数将企业划分为7个信用等级<span
+class="citation" data-cites="2016The"></span>。 ChenY. S和 Cheng C.
+H.基于各等级违约概率(PD)的差异.将企业划分为5 个信用等级。Moon T.Kim
+Y.等根据企业的信用得分,划为 10 个信用等级<span class="citation"
+data-cites="Chen_Cheng_2013"></span>。 Mileris R(2012)通过因子分析与
+Probit
+模型进行指标筛选，确定了包括工业生产指数等影响信用风险的关键指标<span
+class="citation" data-cites="2012Macroeconomic"></span>。 Dainelli et
+al.(2013)通过 logit
+模型建立了包括盈利能力、偿付能力和信贷质量等指标的中小企业信用评级体系。</p>
+<p>在信用评价模型构建方面，
+Baser等(2023)提出一种基于聚类的模糊分类（CBFC）的信用风险评估方法,将模糊聚类与监督学习相结合的策略来构建信用评分模型<span
+class="citation" data-cites="Baser_Koc_Selcuk-Kestel_2023"></span>。Roy
+Pranith
+Kumar(2022)早期的可持续信用评分模型被扩展为一个基于ESG的信用评级模型，以对借款人进行分类<span
+class="citation" data-cites="Pranith"></span>。Hamido
+Fujita等（2022）将企业信用状况分为低违约风险、中等违约风险和高违约风险三类。在采用OVO分解融合方法处理多类问题的前提下，提出了两种新的多类不平衡企业信用评价模型，即OVO-AB-OVO-LightGBTGBM-M1模型和OVO-AB-GBM-M2模型，将AB不平衡处理方法与LightGBM集成分类器相结合<span
+class="citation" data-cites="Sun_Li_Fujita_2022"></span>。 Yujia Chen,
+Raffaella
+Calabrese(2023)等人通过分析局部可解释模型无关解释和局部解释解释（LIME），并研究了它们在不同的类不平衡水平上的解释性能。使用由欧洲数据中心提供的住宅抵押贷款数据和另外两个开源的信用评分数据集来验证结果的稳健性。XGBoost和随机森林被选为“黑盒”机器学习模型来生成预测<span
+class="citation" data-cites="Chen_2024"></span>。 Furkan
+Baser(2022)等提出一种基于聚类的模糊分类（CBFC）的信用风险评估方法，该方法根据FKM聚类分布给聚类，通过提高ML算法的预测能力。通过对具有模糊隶属度值的模型输出进行加权，开发一种计算每个输入的单一违约概率（PD）的算法。构建了模糊聚类与监督学习相结合策略的信用评分模型<span
+class="citation" data-cites="Baser_2023"></span>。
+Boughaci等人（2021）在估计随机森林集成模型之前也使用k-means聚类来提高财务困境预测性能<span
+class="citation"
+data-cites="2021Classification"></span>。Golbayani等（2020）对应用机器学习技术预测信用评级的文献结果进行了调查和比较分析，将之前研究中被认为有用的四种机器学习技术(袋装决策树、随机森林、支持向量机和多层感知机)应用于相同的数据集。我们使用10倍交叉验证技术评估结果，得出基于决策树的模型具有优越的性能<span
+class="citation"
+data-cites="Golbayani_Florescu_Chatterjee_2020"></span>。</p>
+<p>Bao等人（2019）提出了提出了一种将无监督学习与监督学习相结合的信用风险评估策略，提出一种基于聚类和分类方法相结合的算法来评估个体的信用风险。在此背景下，作者讨论了7种监督分类模型以及两种不同的聚类模型，k-均值和自组织映射<span
+class="citation" data-cites="Bao_Lianju_Yue_2019"></span>。 Terry
+Harris(2013)通过支持向量机的方法遵选出信用风险评价指标，构建了巴巴多斯信贷联盟的信用评价模型<span
+class="citation" data-cites="2013Quantitative"></span>。</p>
+<h3 id="文献综述总结">文献综述总结</h3>
+<p>在信用评价体系的筛选上，应用较为广泛的方法是偏相关分析、支持向量、因子分析与
+Probit
+模型等方法，这些方法受各个因素的影响，比如各个企业的特殊性，行业标准差异性，或者受限于相关数据的可获得性等，这些对因素对评价体系筛选的准确性有待验证，在筛选指标时有些方法像模糊层次分析法存在主观性，导致结论存在客观偏差。这些体系在实际应用中存在一些不足，企业信用评级模型需要考虑到不同行业间的经营特色，企业经营状况等因素，可以考虑加入企业的业务往来数据作为参考指标，提升评价结果的准确性。</p>
+<p>在信用评价模型方面，MLP神经网络，持向量机，Logistic
+回归信用评价模型， AHP 加熵权法，ESG，SVM
+等方法在研究上应用较广泛，其中机器学习的相关方法能
+更为客观地度量企业真实的信用质量，基于机器学习的信用评价模型则更加侧重于对数据的挖掘和深度分析。通过运用复杂的算法和模型，机器学习模型能够自动从数据中提取有用的信息，并对信用风险进行更为精准和个性化的评估。这类模型在处理非线性关系、高维度数据以及动态变化方面具有优势，适用于复杂多变的信用评估场景。且基于BP神经网络的数据挖掘算法，模型的准
+确度高。</p>
+<p>在信用等级划分方面，在不同的研究中，企业信用等级的划分标准和方法存在差
+异，不具备统一的标准和一致性。不同研究结果都是基于不同的行业或者业务模式下
+构建的划分方法，具有不可比性。如果是专业的测评机构需要选择具有统一标准的划
+分方法，但是对于企业来说，可以根据与客户的业务往来状况来选择适合自己业务的
+划分方式。</p>
+<p>综上所述，在新的研究中，可以考虑使用机器学习算法，如 BP
+神经网络来进行信 用评价体系的构建，减少主观性。对于 A
+公司来说，在指标的筛选上，可以在采用财 务相关指标的基础上，加入 A
+公司企业客户的业务往来相关的业务指标来研究这些指
+标对评价结果的影响。</p>
+<h2 id="研究问题和研究内容">研究问题和研究内容</h2>
+<h3 id="研究问题">研究问题</h3>
+<p>A公司目前的信用评价系统是基于客户的财务报表、业务相关数据，使用业务制定的评分规则来计算出相应的信用评分，在法务层面是人工审核企业信息并给予主观评分，系统得出评分后，后续会有主观的授信建议阶段，最终的评价模型涉及到的指标较多，而且存在主观因素。</p>
+<p>随着业务的发展，该模型所得出的评价信息与实际客户的应收账款逾期情况逐渐趋于不一致情况，信用评级较高的客户应收账款逾期的情况发生概率并不低。同时经查看数据客户发生逾期的情况在各评级等级中发生概率差别较小，无法从评级中看出客户未来是否会发生逾期。</p>
+<p>同时，信用等级高低与未来是否会逾期的关系并不是高度相关的关系。虽然信用等级可以提供一定的预测能力，但仍需要综合考虑其他因素，以更准确地评估实体的未来信用行为。信用等级并不是预测未来的唯一依据。尽管高信用等级的企业客户未来逾期的风险较低，但仍有可能受到市场变化、突发事件、政策调整等因素的影响而出现逾期行为。同样，低信用等级的实体也有可能通过改善经营管理、加强信用管理等方式提高自身的信用状况，降低未来逾期的风险。</p>
+<p>所以本次研究的问题是期望将影响企业客户实际违约的因素挖掘出来，计算出一套更为客观的信用评价体系，在能看到客户信用评价的同时，也能预测到该客户未来的逾期情况。同时使评级模型脱离主观评价，使客户的评级更为客观。</p>
+<h3 id="研究内容">研究内容</h3>
+<p>本论文的主要研究内容如下：</p>
+<p>（1）针对当前A公司在企业客户信用等级评价上遇到的问题，结合公司的业务背景及国内外相关文献的研究，进行影响企业客户信用指标的分析，预计采用财务相关指标、业务相关指标、及企业资质等信息分析影响客户未来逾期的情况。</p>
+<p>（2）基于构建出的信用评价指标体系，结合国内外相关的理论研究，使用收集到A公司企业客户的相关的历史数据作为训练数据，拟采用BP神经网络及二元Logistic逻辑回归方法来进行信用评价模型的建立，得出企业客户的信用等级和未来的逾期情况。</p>
+<p>（3）开展应用研究。以A公司近期的业务数据作为验证数据，结合构建的信用等级评价模型进行应用实现，分析结果，得出结论。</p>
+<h3 id="技术路线">技术路线</h3>
+<p>本文通过理论研究与实证研究相结合方法 ,
+研究了企业客户的信用风险评级指标体系的构建 , 评价模型的建立,
+研究的技术路线如下图所示。</p>
+<figure>
+<img src="../../../../../pictures/jishuluxian.png" />
+<figcaption>技术路线图</figcaption>
+</figure>
+<h3 id="创新点">创新点</h3>
+<p>本文的创新点有以下两点：</p>
+<p>（1）在评价模型中增加企业客户法务相关的指标，法务因素对企业的信用评价有着重要的影响。目前A公司中的法务指标均为法务部门相关人员手动打分，存在较大主观性，此研究中将引入法务指标，研究这些法务指标对客户信用的影响性。</p>
+<p>（2）此研究的信用评价模型得出的是客户的信用等级和未来是否会逾期这两个结果。在查看客户的等级的同时也能观测到该客户未来的信用情况，从而可以给该客户制定相应的应收账款的账期，减少逾期的发生。</p>
+<p>（3）使用真实的客户逾期数据，逾期数据是信用评价模型中的重要指标之一，能够直接反映客户的信用风险和还款能力。使用真实的客户逾期数据可以帮助构建信用评价模型的训练和验证数据集。通过对逾期数据进行特征提取和模型训练，可以建立更贴近实际情况的信用评价模型，提高模型的预测准确性和泛化能力。同时通过使用逾期数据作为测试集，可以对模型的准确率指标进行评估，从而验证模型的预测能力和稳健性。</p>
+<h3 id="章节结构">章节结构</h3>
+<p>本文分为四个章节，各章节研究框架与内容安排如下：</p>
+<p>第一章节为绪论部分。本部分依次对本研究的研究背景和意义、国内外文献研究、研究技术路线、研究内容、创新点进行阐述。</p>
+<p>第二章为本文模型构建的理论部分，分别对本文中用到的二元Logistic回归及BP神经网络在模型构建过程中用到的核心理论及技术点进行阐述。</p>
+<p>第三章是本文的核心章节，是信用评价模型构建的过程的描写。首先基于文献、权威机构及A公司现有的信用评价系统筛选出评价指标，再使用二元Logistic回归进行单因素、多因素的指标筛选，最终筛选出影响企业客户是否逾期的评价指标。再基于已筛选出的指标对是否逾期和客户信用等级使用BP神经网络构建信用评价模型，最终得出基于评价指标的数据得到客户的信用等级和未来是否逾期的预测。</p>
+<p>第四章是基于构建的评价模型，使用A公司企业客户近期的数据进行实证分析，通过模型预测出客户的信用等级和未来是否逾期，再与实际情况进行对比分析，进行模型的检验。</p>
+<h1 id="相关基本理论">相关基本理论</h1>
+<h2 id="信用评价的相关理论">信用评价的相关理论</h2>
+<h3 id="信用评价的概念">信用评价的概念</h3>
+<p>信用评价（Credit
+Evaluation）也称为信用评估、信用评级、资信评估、资信评级，是以一套相关指标体系为考量基础，标示出个人或企业偿付其债务能力和意愿的过程。信用评价是一个企业履约状况和偿债能力综合反映。
+这种评估基于一系列因素，包括财务健康状况、历史偿还记录、业务稳定性、管理质量、市场地位等。信用评价的目的是帮助贷款方、投资者和其他利益相关者了解借款方的信用风险，从而做出更明智的决策。</p>
+<p>信用评价通常分为不同的等级，不同的信用评级机构采用不同的评估标准、方法和模型来进行信用评价，也会采用不同的等级划分标准和命名方式。信用评价可以由专门的信用评级机构（如穆迪、标准普尔、惠誉等）进行，也可以由银行、保险公司等金融机构内部进行。</p>
+<p>信用等级并不是绝对的，它会随着市场环境、企业经营状况等因素的变化而发生变化。投资者或者企业在参考信用等级时，需要了解评级机构的评估标准和方法，并结合实际情况进行综合分析。</p>
+<h3 id="信用评价的分类">信用评价的分类</h3>
+<p>信用评价的主要类型和分类可以根据不同的标准来划分。以下是几种常见的分类方式：</p>
+<p>按评价对象分类：
+企业信用评价：主要评估企业的偿债能力、履约能力、守信程度等，以判断企业的信用状况。
+个人信用评价：主要评估个人的履约能力、信用记录、还款意愿等，以判断个人的信用状况。
+国家信用评价：主要评估一个国家的偿债能力、政治稳定性、经济前景等，以判断国家的信用状况。</p>
+<p>按评价范围分类：
+综合信用评价：对企业或个人的整体信用状况进行全面评估，包括财务状况、经营能力、履约记录等多个方面。
+专项信用评价：针对某一特定方面或领域进行信用评估，如债券信用评价、担保机构信用评价等。</p>
+<p>按评价方法分类：
+定性评价：主要依赖于评估人员的经验和专业知识，通过主观判断来评估信用状况。
+定量评价：主要依赖于数学模型和统计数据，通过客观分析来评估信用状况。</p>
+<p>按评价机构分类：
+内部信用评价：由企业或机构内部设立的信用评价部门进行，主要用于内部管理和风险控制。
+外部信用评价：由独立的第三方信用评价机构进行，结果更具公正性和权威性，广泛应用于市场。</p>
+<p>按评价等级分类：
+信用评价通常分为不同的等级，如AAA级、AA级、A级、BBB级、BB级、B级、CCC级、CC级、C级和D级等。不同机构对等级的定义可能略有差异，但一般来说，AAA级表示信用状况最好，违约风险最低；而D级则表示信用状况最差，违约风险最高。</p>
+<p>本文研究的信用评价的类别是企业客户的信用等级，将企业客户的信用等级进行划分，为A公司信用相关人员提供一个清晰的信用参考，帮助他们做出更明智的决策，降低客户的信用风险，促进商业合作。</p>
+<h3 id="是否逾期的定义">是否逾期的定义</h3>
+<p>本文基于A公司的信用评价业务基础进行研究，该业务中，客户在申请信用评价后，会得出该客户的账期，如果客户在账期内未付清账款，发生逾期，逾期产生七天后仍逾期，则该客户的逾期记录被归档。</p>
+<p>客户历史是否有逾期的定义如下，若一个客户在申请信用评价时，若过去6个月以内存在逾期归档记录，则该客户就被记录为有逾期记录。本文延用该定义，在此基础上，研究客户未来是否会产生逾期。未来是否会逾期定义为：若一个客户在申请信用评价时，未来6个月以内会产生逾期且会被归档，则该客户未来是否会逾期将被记为是，否则为否。</p>
+<h2 id="二元logistic逻辑回归">二元Logistic逻辑回归</h2>
+<h3 id="定义">定义</h3>
+<p>Logistic回归它可以从多个自变量中选出对因变量有影响的自变量，并可以给出预测公式用于预测。Logistic回归分析分为3类，分别是二元Logistic回归分析、多元有序Logistic回归分析和多元无序Logistic回归分析。而因变量为二分类的称为二项logistic回归，通常再解释变量为0和1二值品质变量的时候采用。</p>
+<p>Logistic二元逻辑回归是一种用于处理二分类问题的回归分析方法，是一个概率模型。它主要用于因变量为分类变量的回归分析，自变量可以为分类变量，也可以为连续变量，将自变量的线性组合映射到一个介于0和1之间的数值，表示某个样本属于某一类的概率。在实际应用中，可以通过设定一个阈值来将概率值转化为类别标签。逻辑回归的解释通常包括自变量的系数（即回归系数），这些系数可以用来解释自变量对因变量的影响程度。逻辑回归模型还可以提供概率预测，帮助我们理解不同自变量对于预测结果的影响。</p>
+<h3 id="基本原理">基本原理</h3>
+<p>二元Logistic回归假设输出变量服从伯努利分布，即取值为0或1的离散分布。模型的目标是通过给定的输入变量，预测输出变量为0或1的概率。模型的核心是Logistic函数，该函数可以将输入变量的线性组合映射到一个0到1之间的数值。这种映射使得Logistic回归能够处理二分类问题。logistic函数也就是经常说的sigmoid函数，是一个S型曲线，公式如下：</p>
+<p><span class="math display">$$y = \frac{1}{1+\eu^-x}$$</span>
+sigmoid函数图像如下：</p>
+<figure>
+<img src="../../../../../pictures/logistic.png" />
+<figcaption>Sigmoid函数图像</figcaption>
+</figure>
+<p>因变量y为二分变量，其中阳性值取1，阴性值取0。假设p为取阳性的概率，那么1-p就是阴性的概率。阳性与阴性的比值就成为胜算（odds）,定义胜算的公式为：</p>
+<p><span class="math display">$$odds = \frac{p}{1-p}$$</span></p>
+<p>该公式表示阳性的概率是阴性概率的多少倍。对胜算取自然对数，就可以得到Logistic的逻辑回归模型。Logistic回归模型是建立，在<span
+class="math inline">$ln(\frac{p}{1-p})$</span>与自变量的线性回归模型。公式如下：</p>
+<p><span class="math display">$$ln(\frac{p}{1-p}) = f(x) =
+\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_kX_k$$</span></p>
+<p>其中<span
+class="math inline">$ln(\frac{p}{1-p})$</span>服从二元logistic分布，取值范围为(-<span
+class="math inline">∞</span>, +<span class="math inline">∞</span>),
+<span class="math inline"><em>X</em><sub>1</sub></span>到<span
+class="math inline"><em>X</em><sub><em>k</em></sub></span>是k个自变量，取值范围可以是任意范围。自变量可以是连续变量，也可以是分类变量。如果X是分类变量，则需要将其处理为虚拟变量。方程的右边是一个线性回归方程，左边为胜算odds自然对数,经过对数转换，即可得到Logistic回归模型的线性模型。其中系数<span
+class="math inline"><em>β</em></span>是回归系数值，即为二元logistic回归需要计算出来的值，X增加1个单位，则胜算的自然对数会增加<span
+class="math inline"><em>β</em></span>的倍数。
+则取阳性的概率p可以表示为：</p>
+<p><span class="math display">$$p=
+\frac{1}{1+e^{-(\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_kX_k)}}$$</span></p>
+<h3 id="回归模型估计">回归模型估计</h3>
+<p>（1）模型的参数估计</p>
+<p>Logistic二元回归是使用极大似然估计（MLE）做参数估计。极大似然估计的基本思想是在给定一组观测数据的情况下，找到一组参数，使得这组参数能够最大化产生观测数据的概率。在Logistic回归的上下文中，这意味着找到一组参数（通常是权重和偏置），使得根据这些参数计算出的观测对象属于某个类别的概率与实际观测到的标签最匹配。通过极大似然估计，我们可以得到Logistic回归模型的参数估计值，进而使用这些参数来预测新观测对象的类别概率。</p>
+<p>（2）拟合优度的检验</p>
+<p>评估Logistic回归模型拟合优度的统计检验方法为Hosmer-Lemeshow检验，Hosmer-Lemeshow检验的基本思想是将模型预测的概率分成若干组，然后比较每组的实际观测值和预期值之间的差异。具体来说，它将样本按照模型预测的概率从低到高排序，然后分为若干个等概率的组。在每个组内，计算实际观测事件发生的比例和模型预测的事件发生的比例，并计算它们的差异。如果模型拟合得好，那么这些差异应该很小。</p>
+<p>Hosmer-Lemeshow检验的原始假设是测量值分布和期望值分布之间没有显著性差异。如果检验的显著性P结果大于显著水平(一般取0.05)，则接受原假设，模型拟合优度较好；当P值小于显著性水平时，拒绝原假设，模型拟合度较差。</p>
+<p>（3）模型的假设检验
+Logistic回归模型的假设检验，常用的检验方法有似然比检验（likelihood ratio
+test）、计分检验（score test）和Wald检验（Wald
+test），这些检验方法用于检验模型中各个自变量的系数是否显著，即判断自变量对因变量的影响是否存在统计学意义。</p>
+<p>likelihood
+ratio检验：用于比较一个完整模型和一个简化模型之间的拟合优度，从而判断模型是否需要包含特定的自变量。基本思想是比较两种不同假设条件下，对数似然函数值的差别大小。它可以用来检验整个模型是否具有统计学意义，即所有自变量的总体回归系数是否均为0。在应用LR检验时，需要满足适用数据类型、样本容量要求、独立性假设、线性关系假设、无多重共线性等条件。此外，还需要对模型的拟合度和预测能力进行评估，并进行结果的解释和推断。只有在满足这些条件的情况下，才能获得准确可靠的LR检验结果，并对研究问题进行科学合理的判断和决策。LR检验的基本假设之一是样本之间是相互独立的。即各个样本之间的观测值不会相互影响。此假设在实际研究中往往不容易满足，因此需要在样本选择和实验设计上进行合理的控制，以尽量减少样本之间的相关性。LR检验的另一个重要假设是自变量和因变量之间存在线性关系。简单来说，就是自变量的变化对因变量的影响是线性的，而不是非线性的。如果自变量和因变量之间存在非线性关系，需要进行适当的数据变换或者选择其他适用的统计方法。</p>
+<p>计分检验也是一种常用的假设检验方法，其基本原理和似然比检验类似，都是通过比较不同模型的对数似然函数值来进行检验。计分检验可以用于检验模型的某些假设是否成立，例如检验自变量是否满足线性关系或检验模型是否满足比例性假设等。计分检验的基本步骤构建模型的得分函数，计算得分函数的期望值：构建检验统计量，最后进行假设检验：根据检验统计量的分布和给定的显著性水平，进行假设检验。如果检验统计量的值大于临界值，则拒绝原假设，认为模型的某些假设不成立；否则，接受原假设。</p>
+<p>Wald检验被广泛应用于医学、社会科学、金融等领域中，用于判断实验结果是否具有统计显著性，从而推断出实验中所探究的变量之间是否存在相关性。由于Wald检验的计算方法比较易懂，所以在统计学中也被广泛使用。本文采用Wald检验，Wald检验是每个自变量是否与因变量显著性影响，如果有多重共线性时结果不准确。Wald检验是先对原方程（无约束模型）进行估计，得到参数的估计值，再代入约束条件检查约束条件是否成立。Wald检验的优点是只需估计无约束一个模型。用u检验或者x平方检验，推断各参数B是否为0，其中使用Wald统计量来检验每个参数的显著性。Wald统计量的计算公式为：</p>
+<p><span class="math display">$$W = \frac{b-\beta}{SE(b)}$$</span></p>
+<p>其中，b为模型估计的系数，β为我们假设的值，SE(b)为b的标准误。计算出W值后，我们可以将其与标准正态分布进行比较，如果W值大于标准正态分布的临界值，则说明该参数显著。
+需要注意的是，Wald检验通常适用于样本量较大的情况，如果样本量较小，则可能会出现W值过大而导致显著性判断错误的情况。</p>
+<h2 id="bp神经网络">BP神经网络</h2>
+<h3 id="概述">概述</h3>
+<p>BP神经网络（Back
+Propagation），作为一种多层前馈神经网络，核心特性在于信号的正向传递与误差的反向传播。该网络由输入层、隐含层和输出层构成，每一层均含有多个并行工作的神经元。在正向传播阶段，输入信号通过输入层与隐含层，最终到达输出层。训练过程中，一旦输出值与预期值之间存在误差，该误差将通过反向传播的方式逐层传递，进而动态调整每个神经元间的阈值及其连接权值。经过多轮的训练迭代，模型的输出值会逐渐逼近预期值。以下是BP神经网络的简化结构图：</p>
+<figure>
+<img src="../../../../../pictures/bpnetwork.png" />
+<figcaption>BP神经网络结构图</figcaption>
+</figure>
+<p>上图中,<span class="math inline"><em>x</em><sub>1</sub></span>到<span
+class="math inline"><em>x</em><sub><em>n</em></sub></span>是BP神经网络的输人值,<span
+class="math inline"><em>y</em><sub>1</sub></span>到<span
+class="math inline"><em>y</em><sub><em>n</em></sub></span>是BP神经网络的预测值,V和W为BP神经网络权值。从图可以看出,BP神经网络可以看成一个非线性函数,网络输人值和预测值分别为该函数的自变量和因变量。当输入节点数为、输出节点数为m时,BP神经网络就表达了从个自变量到m个因变量的函数映射关系。</p>
+<h3 id="训练过程">训练过程</h3>
+<p>BP神经网络学习过程包括以下步骤，</p>
+<p>（1）网络初始化：首先，需要对神经网络的各连接权值和阈值进行初始化，通常赋予它们(0,1)区间内的随机数值。同时，设定误差函数和计算精度值。确定输入层、输出层、隐含层节点个数，假设分别为n、m、M,其中M的公式一般取如下：</p>
+<p><span class="math display">$$M = \sqrt{n+m} + a$$</span></p>
+<p>其中a的取值范围为1-10。BP神经网络一般使用均方差MSE作为误差函数。
+单输出时，误差函数如下：</p>
+<p><span class="math display">$$E(W,b) =
+\frac{1}{m}\sum\limits_{i=1}^{m} (\hat{y}_i - y_i)^2$$</span></p>
+<p>其中,m为样本个数,<span
+class="math inline"><em>ŷ</em><sub><em>i</em></sub></span>为第i个样本网络的预测值,<span
+class="math inline"><em>y</em><sub><em>i</em></sub></span>为第i个样本的真实值。</p>
+<p>多个输出时，误差函数拓展如下：</p>
+<p><span class="math display">$$E(W,b) =
+\frac{1}{m}\sum\limits_{i=1}^{m}\frac{1}{S}\sum\limits_{j=1}^{S}(\hat{y}_{ij}
+- y_{ij})^2$$</span></p>
+<p>S是网络输出个数,m是样本个数上述的<span
+class="math inline"><em>ŷ</em><sub><em>i</em><em>j</em></sub></span>指的是网络对i个样本第j个输出的预测值。</p>
+<p>（2）正向传播：在正向传播过程中，输入样本从输入层传入，经过各隐含层神经节点的处理（包括加权求和和非线性激活函数），然后逐层传递，最终从输出层输出信息。每个神经元接收来自前一层所有神经元的加权输入，然后加上一个偏置（Bias），并通过激活函数（Activation
+Function）来产生输出信号。</p>
+<p>（3）计算输出层误差：计算网络的实际输出与期望输出之间的误差。这个误差反映了当前网络对输入样本的处理能力，也是后续权值调整的依据。</p>
+<p>（4）误差反向传播：如果输出层的误差大于设定的精度值，那么将误差逐层反向传播到之前的各层。在这个过程中，根据误差信号调整各层神经元的权值和阈值，使网络的输出向期望输出逼近。</p>
+<p>（5）权值更新：根据误差反向传播的结果，按照一定的学习率更新各层神经元的权值和阈值。这个过程是神经网络学习的核心，通过不断调整权值和阈值，使网络能够更好地适应输入样本。</p>
+<p>（6）迭代学习：重复以上步骤，直到整个训练样本集的误差减小到符合要求为止。在这个过程中，神经网络的性能会逐渐提高，对输入样本的处理能力也会逐渐增强。</p>
+<p>以上就是BP神经网络学习过程的主要步骤。需要注意的是，这个过程是一个迭代的过程，需要反复进行权值调整和误差计算，直到达到设定的精度要求或者达到预设的最大迭代次数。</p>
+<h3 id="激活函数">激活函数</h3>
+<p>BP神经网络的激活函数（Activation
+Function）是在神经网络的神经元上运行的函数，负责将神经元的输入映射到输出端。激活函数对于神经网络模型去理解、学习复杂的非线性函数具有十分重要的作用。几种常用的激活函数如下:</p>
+<p>(1) Sigmoid函数</p>
+<p>Sigmoid函数已在二元Logistic回归中介绍过，BP神经网络和Logistic回归中使用的Sigmoid函数在本质上是一样的，都是S型的非线性函数，可以将连续的输入映射到0到1的输出范围内。然而，在BP神经网络和Logistic回归中，Sigmoid函数的应用方式有所不同。</p>
+<p>在BP神经网络中，Sigmoid函数通常用作隐藏层和输出层的激活函数，用于将神经元的输出映射到0到1的范围内。这使得网络能够学习和模拟非线性函数，从而提高了网络的表达能力和泛化能力。在训练过程中，BP算法通过反向传播误差来更新网络的权重和偏置，使得网络的输出逐渐逼近期望的输出。而在Logistic回归中，Sigmoid函数则用作输出函数，将回归模型的输出映射到0到1的范围内，从而得到一个概率值。这个概率值表示了样本属于正类的概率。在训练过程中，Logistic回归使用最大似然估计来求解模型的参数，使得模型能够最小化预测错误。</p>
+<p>（2）Tanh函数</p>
+<p>Tanh函数是双曲正切（Hyperbolic
+Tangent）函数的缩写，是Sigmoid函数的一种变体，它将连续的输入映射到(-1,1)的输出范围内。与Sigmoid函数相比，Tanh函数在零点附近的导数更大，从而可能在一定程度上减轻梯度消失的问题。</p>
+<p>（3）ReLU函数（Rectified Linear Unit）</p>
+<p>ReLU函数是近年来非常受欢迎的激活函数之一。对于输入值小于0的情况，ReLU函数的输出为0；对于输入值大于0的情况，ReLU函数的输出等于输入值。ReLU函数具有简单的数学形式和计算效率高的特点，并且在一定程度上能够缓解梯度消失的问题。然而，它也可能导致神经元输出恒为0的问题。</p>
+<p>（4）Softmax函数</p>
+<p>Softmax函数通常用于多分类问题的输出层。本文的输出就涉及到多分类的问题，所以会用到该函数。它将一组输入映射到一个概率分布上，使得所有输出的概率之和为1。Softmax函数在BP神经网络中用于将神经元的输出转换为概率值。Softmax函数的定义如下：</p>
+<p><span class="math display">$$Softmax(z_i) =
+\frac{e^{z_i}}{\sum\limits_{k=1}^{K} e^{z_k}}$$</span></p>
+<p>其中<span
+class="math inline"><em>z</em><sub><em>i</em></sub></span>为第i个节点的输出值，K为输出节点的个数，即分类的类别个数。通过Softmax函数就可以将多分类的输出值转换为范围在[0,
+1]和为1的概率分布。</p>
+<h3 id="梯度下降法">梯度下降法</h3>
+<p>梯度下降法是一种优化算法，用于寻找最小化损失函数的参数。BP神经网络中通过训练误差来逐步调整各层间的输入权重和偏置，这个调整的过程依据的算法一般有两种，一个是梯度下降法（Gradient
+Descent），另一个是最小二乘法。</p>
+<p>训练误差（或称为损失函数）是依赖于神经网络中的权重和偏置的二次函数。为了最小化这个误差，我们需要计算损失函数关于权重和偏置的偏导数，这些偏导数组成了梯度向量。梯度向量的方向指示了训练误差增加最快的方向，而梯度向量的相反方向则是训练误差减少最快的方向。因此，沿着梯度向量的反方向进行权重和偏置的更新，可以更有效地找到损失函数的最小值，从而实现神经网络的优化。</p>
+<figure>
+<img src="../../../../../pictures/dituxiajiang.png" />
+<figcaption>损失函数图</figcaption>
+</figure>
+<p>假设上图中描绘的曲线代表了损失函数的形状，如果设置的步长太小，迭代次数就会多，收敛慢，如果设置的步长太大，会引起震荡，可能导致无法收敛。该函数存在一个最小值点，是误差率最小，也就是斜率最小。梯度是指损失函数在某一点处的方向导数，沿着这个方向，损失函数的变化率最大。在BP神经网络中，梯度下降法通过计算损失函数关于权重和偏置的偏导数（即梯度），然后沿着梯度的反方向更新权重和偏置，以减小损失函数的值。这个过程不断迭代进行，直到损失函数的值收敛到一个最小值。这种方法就是通过不断地迭代更新参数，最终实现网络的优化。
+假设我们的损失函数为E，权重为w，偏置为b，学习率为η。在梯度下降法中，我们按照以下公式更新权重和偏置：</p>
+<p>对于权重：</p>
+<p><span class="math display">$$(w_{new} = w_{old} - \eta \frac{\partial
+E}{\partial w})$$</span></p>
+<p>对于偏置：</p>
+<p><span class="math display">$$(b_{new} = b_{old} - \eta \frac{\partial
+E}{\partial b})$$</span></p>
+<p>其中，<span class="math inline">$(\frac{\partial E}{\partial
+w})$</span> 和 <span class="math inline">$(\frac{\partial E}{\partial
+b})$</span>
+分别表示损失函数E对权重w和偏置b的偏导数，η是学习率，它决定了参数更新的步长。</p>
+<p>这两个公式表示，在每次迭代中，我们都按照损失函数在当前点的梯度方向（即损失函数增加最快的方向）的相反方向来更新权重和偏置，从而逐渐逼近损失函数的最小值。</p>
+<p>梯度下降法有多种变体，如批量梯度下降法、随机梯度下降法和小批量梯度下降法等。这些方法的主要区别在于每次更新权重和偏置时所使用的样本数量不同。批量梯度下降法使用所有的样本数据进行计算，而随机梯度下降法则每次只使用一个样本数据进行计算。小批量梯度下降法则是介于两者之间，每次使用一部分样本数据进行计算。不同的方法在不同的应用场景下可能有不同的表现，需要根据实际情况进行选择。</p>
+<h3 id="模型检验">模型检验</h3>
+<p>如果要查看BP神经网络模型建立的效果如何，可以通过以下几个方面进行检验：</p>
+<p>误差下降曲线图：BP神经网络预测模型结果需要查看误差下降曲线图。然而，一般不必过分关注这条曲线，除非是为了研究改进算法以提高收敛速度。相比之下，更应关注网络的实际训练效果和实际应用能力，例如预测能力等。</p>
+<p>训练集和测试集的表现：可以通过观察模型在训练集和测试集上的表现来评估模型的效果。如果模型在训练集上表现良好，但在测试集上表现不佳，可能出现了过拟合的问题。相反，如果模型在训练集和测试集上的表现都不好，可能是模型复杂度不足，即欠拟合。</p>
+<p>过拟合和欠拟合的解决方法：针对过拟合问题，可以尝试增加训练数据量、使用正则化约束、调整参数和超参数、降低模型复杂度或使用Dropout等方法。对于欠拟合问题，可以尝试增加模型的复杂度、增加样本有效特征数、调整参数和超参数或使用更复杂的网络结构等方法。</p>
+<p>实际应用效果：最终，模型的效果还需要通过在实际应用中的表现来评估。例如，可以观察模型在预测任务中的准确率、召回率、F1分数等指标，以及模型在处理实际问题时的稳定性和鲁棒性。
+综上所述，BP神经网络模型建立的效果需要综合考虑多个方面的因素来评估。在实际应用中，可能需要根据具体问题和数据集的特点来选择合适的评估方法和优化策略。</p>
+<h1 id="信用评价模型构建">信用评价模型构建</h1>
+<h2
+id="基于二元logistic回归构建指标体系">基于二元Logistic回归构建指标体系</h2>
+<h3 id="数据来源及选取">数据来源及选取</h3>
+<p>本研究的数据来源是从A公司的信用管理系统及ERP系统中获取到的数据，这些数据是关于企业客户在信用管理系统中做过信用评价的客户数据，部分数据是通过企查查第三方信息查询机构中获取的，比如企业是否上市、不良记录等信息。涉及了从2019年至2023期间A公司所有进行过信用评价的客户，考虑到国外客户的信息无法获取的因素，本次研究只取了A公司国内客户的数据，排除无财务相关指标的数据及错误数据的客户，获取到的初始数据有271条。其中下一节中介绍的指标均为模型中的自变量，本模型的因变量为是否逾期FutureOverdueFlag。是否逾期的定义为：客户在信用管理系统进行过信用评价的申请后，如果在6个月内存在应收账款逾期记录，则就被标记为逾期。</p>
+<h3 id="指标筛选">指标筛选</h3>
+<p>1.财务指标</p>
+<p>在参考了国内外评级机构及信用评价相关文献中，本研究选择的财务指标最核心的四大指标，有盈利能力、变现能力、偿债能力、资产管理能力，这些是企业信用评价非常重要的财务指标，它们能够为信用评价时提供企业是否有全面的财务健康状况，企业在面对短期偿债压力时的应对能力，债务偿还能力以及风险应对情况的评估。指标详见表1：</p>
+<div id="tab:papercomponents">
+<table>
+<caption>信用评级财务指标</caption>
+<thead>
+<tr class="header">
+<th
+style="text-align: center;"><span><strong>一级指标</strong></span></th>
+<th
+style="text-align: center;"><span><strong>二级指标</strong></span></th>
+<th
+style="text-align: center;"><span><strong>指标符号</strong></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">盈利能力</td>
+<td style="text-align: center;">销售净利率</td>
+<td style="text-align: center;">NPM</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">销售毛利率</td>
+<td style="text-align: center;">GPM</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">净资产收益率</td>
+<td style="text-align: center;">ROE</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">变现能力</td>
+<td style="text-align: center;">流动比率</td>
+<td style="text-align: center;">CR</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">速动比率</td>
+<td style="text-align: center;">QR</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">现金比率</td>
+<td style="text-align: center;">CASHR</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">资产管理能力</td>
+<td style="text-align: center;">存货周转率</td>
+<td style="text-align: center;">ITR</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">应收账款周转率</td>
+<td style="text-align: center;">ARTR</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">偿债能力</td>
+<td style="text-align: center;">资产负债率</td>
+<td style="text-align: center;">DAR</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>2.业务指标</p>
+<p>业务指标是筛选出与A公司有业务往来的客户的客观数据，分为三个指标：信用记录、增信措施、经营指标。信用记录指标反映的是企业在过去的与A公司的经营活动中所形成的信用行为和信用历史，可以反映企业过去的信用表现，展现客户的信用行为和信用管理能力，信用记录良好的客户通常能够获得更好的信用评级。增信措施是客户为提高信用而采取的措施，例如提供担保、投保信用险等。增信措施可以帮助企业降低债权人的信用风险，增强债务偿还能力。经营指标是企业的各项经营数据和，这些指标可以反映企业的经营状况。良好的经营指标通常可以为企业赢得更好的信用。本文采用的业务指标主要有以下指标:</p>
+<div class="tabular">
+<p><span>ccc</span> <span><strong>一级指标</strong></span> &amp;
+<span><strong>二级指标</strong></span> &amp;
+<span><strong>指标符号</strong></span><br />
+信用记录 &amp; 是否有逾期记录 &amp; OverdueFlag<br />
+&amp; 不良记录 &amp; BADR<br />
+增信措施&amp; 是否有银行保函 &amp; BGFlag<br />
+&amp; 是否投保信用险 &amp; CTFlag<br />
+&amp; 是否关联担保公司 &amp; GCFlag<br />
+经营指标&amp; 客户经营状态 &amp; CES<br />
+&amp; 经营负荷情况 &amp; OLC<br />
+&amp; 内销比例 &amp; DSR<br />
+&amp; 外销比例 &amp; ESR<br />
+&amp; 是否为新客户 &amp; NewFlag<br />
+</p>
+</div>
+<p>3.企业资质指标</p>
+<p>企业资质指标可以反映企业的经营实力和规模水平，也可以反映企业的历史背景和稳定性，也能展示出企业的发展潜力和未来增长空间。拥有相关的资质认定可以表明企业在特定领域具有一定的专业能力和技术实力，同时也有助于提升企业的品牌形象和知名度，这些对于企业的信用评价具有积极的影响。企业成立年限是衡量企业稳定性和可靠性的重要指标之一，成立年限较长的企业在面对市场波动和风险挑战时，往往具有更强的抵抗能力和适应能力，其信用状况也更为可靠。获得ISO认证意味着企业已经通过了一系列国际标准的审核，证明其在质量、环境、安全等方面达到了一定的要求。在信用评价中，拥有ISO资格认证的企业往往更容易获得较高的信用评级。上市公司需要遵守更为严格的法规和监管要求，包括定期公开财务报告、接受审计和遵守证券市场的相关规定。这种透明度和规范性有助于提升公司的信用评级。净资产代表企业所有者对企业资产的净权益，它反映了企业的自有资金实力。一个拥有较大净资产规模的企业，通常意味着其具备较强的财务实力和抵御风险的能力。在信用评价中，这种财务实力是企业获得较高信用评级的重要保障。
+本文采用的企业资质指标如下表：</p>
+<div class="tabular">
+<p><span>ccc</span> <span><strong>一级指标</strong></span> &amp;
+<span><strong>二级指标</strong></span> &amp;
+<span><strong>指标符号</strong></span><br />
+基本信息 &amp; 企业成立年限 &amp; YOE<br />
+&amp; ISO资格认证 &amp; ISOFlag<br />
+&amp; 是否上市 &amp; ListedFlag<br />
+&amp; 净资产规模 &amp; NAS<br />
+</p>
+</div>
+<h3 id="数据分析">数据分析</h3>
+<p>在做二元Logistic回归分析之前，通常需要先进行一系列的数据分析工作。这些分析不仅有助于确保数据的准确性和可靠性，还能为后续的Logistic回归分析提供重要的背景信息和指导。本文将对企业数据进行深入的相关性分析和多重共线性分析，旨在揭示企业不同变量之间的关联程度以及变量间可能存在的潜在问题。</p>
+<p>通过相关性分析，可以了检测探究不同变量之间是否存在某种关联，以及这种关联的程度和方向。这对于理解研究领域的内在机制和影响因素至关重要，为后续模型解释提供基础。同时相关性分析是进行多因素
+Logistic
+回归分析的基础。在进行多因素分析之前，需要首先了解各自变量与因变量之间的相关性，以便选择最具影响力的自变量进行进一步的分析。同时，多重共线性分析将帮助处理变量间的共线性问题，避免自变量之间存在高度相关的情况，当存在多重共线性时，回归模型的估计结果可能会失真，导致模型对数据的拟合效果不佳，降低模型的稳定性和可靠性。通过综合运用这两种分析方法，将更全面地了解数据的内在关系，为构建准确、可靠的模型打下坚实的基础。</p>
+<p>Logistic回归模型本身是一种概率模型，它分析的是某一事件发生与否的概率与自变量之间的关系。因此，即使变量之间存在高度相关性，Logistic回归模型仍然可以处理并给出相应的结果。但是，为了获得更稳定、更准确的模型，需要在进行Logistic单因素分析之前先进行相关性分析。</p>
+<p>(1) Pearson相关系数分析</p>
+<p>本文采用Pearson相关系数分析，计算公式为</p>
+<p><span class="math display">$$r = \frac{cov(X, Y)}{\sigma X * \sigma
+Y}$$</span></p>
+<p>其中cov(X, Y)表示X和Y的协方差，<span
+class="math inline"><em>σ</em></span>X和<span
+class="math inline"><em>σ</em></span>Y表示X和Y的标准差。相关系数的取值范围在-1到1之间，当r&gt;0时表示正相关，r&lt;0时表示负相关，r=0时表示无相关关系。</p>
+<p>使用Excel数据分析工具对3.1.2章节得出的23个指标数据进行分析得出下表：</p>
+<div id="tab:papercomponents">
+<table>
+<caption>指标相关系数r</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">相关系数(r)</th>
+<th style="text-align: center;">流动比率(CR)</th>
+<th style="text-align: center;">速动比率(QR)</th>
+<th style="text-align: center;">内销比例(DSR)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">速动比率(QR)</td>
+<td style="text-align: center;">0.98</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.088</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">现金比率(CASHR)</td>
+<td style="text-align: center;">0.86</td>
+<td style="text-align: center;">0.88</td>
+<td style="text-align: center;">0.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">外销比例(ESR)</td>
+<td style="text-align: center;">-0.088</td>
+<td style="text-align: center;">-0.088</td>
+<td style="text-align: center;">-1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>经过深入的相关性分析，发现速动比率（QR）与流动比率（CR）的相关系数高达0.98，现金比率（CASHR）与流动比率（CR）的相关系数为0.86，而现金比率（CASHR）与速动比率（QR）的相关系数也达到了0.88，均显示出强烈的正相关性。同时，外销比例（ESR）与内销比率（DSR）之间的相关系数为-1，呈现出极强的负相关性。</p>
+<p>鉴于速动比率（QR）与流动比率（CR）以及现金比率（CASHR）之间的强相关性，优先选择了保留现金比率（CASHR），因为它直接反映了企业可立即用于偿还短期债务的能力，是信用评价中的关键指标。较高的现金比率意味着企业短期偿债能力更强，从而有助于提升信用评级。</p>
+<p>在内销比例（DSR）和外销比例（ESR）的选择上，保留了外销比例（ESR）作为代表性指标。最终，剔除了速动比率（QR）、流动比率（CR）和内销比率（DSR）。</p>
+<p>此外，在相关性分析中，注意到指标“是否有银行保函”（BGFlag）在排除无财务相关指标的数据后，该指标的数据均变为无银行保函，因此不再具有研究价值，删除该指标。</p>
+<p>经过这一系列的分析与筛选，最终保留了19个二级指标，这些指标将为后续的研究提供更加精准和有效的数据支持，如下表：</p>
+<div id="tab:papercomponents">
+<table>
+<caption>信用评级指标</caption>
+<thead>
+<tr class="header">
+<th
+style="text-align: center;"><span><strong>指标大类</strong></span></th>
+<th
+style="text-align: center;"><span><strong>一级指标</strong></span></th>
+<th
+style="text-align: center;"><span><strong>二级指标</strong></span></th>
+<th
+style="text-align: center;"><span><strong>指标符号</strong></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">财务指标</td>
+<td style="text-align: center;">盈利能力</td>
+<td style="text-align: center;">销售净利率</td>
+<td style="text-align: center;">NPM</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">销售毛利率</td>
+<td style="text-align: center;">GPM</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">净资产收益率</td>
+<td style="text-align: center;">ROE</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">变现能力</td>
+<td style="text-align: center;">现金比率</td>
+<td style="text-align: center;">CASHR</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">资产管理能力</td>
+<td style="text-align: center;">存货周转率</td>
+<td style="text-align: center;">ITR</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">应收账款周转率</td>
+<td style="text-align: center;">ARTR</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">偿债能力</td>
+<td style="text-align: center;">资产负债率</td>
+<td style="text-align: center;">DAR</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">信用记录</td>
+<td style="text-align: center;">是否有逾期记录</td>
+<td style="text-align: center;">OverdueFlag</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">不良记录</td>
+<td style="text-align: center;">BADR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">业务指标</td>
+<td style="text-align: center;">增信措施</td>
+<td style="text-align: center;">是否投保信用险</td>
+<td style="text-align: center;">CTFlag</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">是否关联担保公司</td>
+<td style="text-align: center;">GCFlag</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">经营指标</td>
+<td style="text-align: center;">客户经营状态</td>
+<td style="text-align: center;">CES</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">经营负荷情况</td>
+<td style="text-align: center;">OLC</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">外销比例</td>
+<td style="text-align: center;">ESR</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">是否为新客户</td>
+<td style="text-align: center;">NewFlag</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">企业资质</td>
+<td style="text-align: center;">基本信息</td>
+<td style="text-align: center;">企业成立年限</td>
+<td style="text-align: center;">YOE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">ISO资格认证</td>
+<td style="text-align: center;">ISOFlag</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">是否上市</td>
+<td style="text-align: center;">ListedFlag</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">净资产规模</td>
+<td style="text-align: center;">NAS</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>（2）多重共线性分析</p>
+<p>为了避免自变量之间存在高度相关性的情况，需要对变量进行多重共线性检测。多重共线性可能会导致回归系数估计不准确，使得模型的解释性和预测能力降低。本文采用方差膨胀因子VIF进行检查，计算公式如下，</p>
+<p><span
+class="math display"><em>V</em><em>I</em><em>F</em> = 1/(1 − <em>R</em><sup>2</sup>)</span></p>
+<p><span
+class="math inline"><em>R</em><sup>2</sup></span>为该自变量与其他自变量的线性相关系数的平方和。</p>
+<p>本论文对保留的19个指标进行了共线性检测。计算各指标之间的方差膨胀因子（VIF），检测结果如下：</p>
+<div id="tab:papercomponents">
+<table>
+<caption>指标多重共线性分析</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">指标</th>
+<th style="text-align: center;">VIF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">是否为新客户NewFlag</td>
+<td style="text-align: center;">1.447</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">企业成立年限YOE</td>
+<td style="text-align: center;">1.592</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ISO资格认证ISO</td>
+<td style="text-align: center;">1.112</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">是否有逾期记录OverdueFlag</td>
+<td style="text-align: center;">1.152</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">其他不良记录BADR</td>
+<td style="text-align: center;">1.348</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">是否上市ListedFlag</td>
+<td style="text-align: center;">1.446</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">经营负荷情况OLC</td>
+<td style="text-align: center;">1.099</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">是否已投保信用险CTFlag</td>
+<td style="text-align: center;">1.216</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">是否关联担保公司CTFlag</td>
+<td style="text-align: center;">1.212</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">销售净利率NPM</td>
+<td style="text-align: center;">1.352</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">销售毛利率GPM</td>
+<td style="text-align: center;">1.574</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">净资产收益率ROE</td>
+<td style="text-align: center;">1.308</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">资产负债率DAR</td>
+<td style="text-align: center;">2.347</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">净资产规模（人民币万元）NAS</td>
+<td style="text-align: center;">1.482</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">现金比率CASHR</td>
+<td style="text-align: center;">1.905</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">存货周转率ITR</td>
+<td style="text-align: center;">1.171</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">应收账款周转率ARTR</td>
+<td style="text-align: center;">1.048</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">外销比例ESR</td>
+<td style="text-align: center;">1.242</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>当0&lt;VIF&lt;10，不存在多重共线性;当10≤VIF&lt;100，存在较强的多重共线性;当VIF≥100，存在严重多重共线性。在上述表中，VIF值最大的为2.347&lt;3,发现这些指标之间不存在严重的共线性问题。这意味着这19个指标能够独立地为本研究提供有价值的信息，避免了因共线性导致的分析结果失真。</p>
+<h3 id="指标数据的归一化">指标数据的归一化</h3>
+<p>数据归一化是将数据归一化至[0,1]区间，消除不同变量之间性质、量纲、数量级等特征属性的差异，将其转化为一个无量纲的相对数值，也就是标准化数值，使各指标的数值都处于同一个数量级别上，从而便于不同单位或数量级的指标能够进行综合分析和比较。数据标准化在模型运行之前具有重要意义，可以提高模型的稳定性、准确性和收敛速度。数据标注化有以下重要功能：</p>
+<p>（1）统一量纲：数据标准化可以将原始数据的量纲转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权。这样做可以消除由于量纲不同导致的误差，使得模型能够更好地获取数据中的有效特征。</p>
+<p>（2）消除异常数据的影响：标准化能够减小异常数据对于模型训练的影响，从而加快模型的收敛速度。标准化处理可以消除奇异数据对模型训练的负面影响，提高模型的稳定性和准确性。</p>
+<p>本文19种指标中有不同的数据类型，有分类变量和连续变量。分以下步骤进行数据的标准化：</p>
+<p>（1）数据清洗，对数据进行去重，去重操作旨在识别和消除数据集中的重复记录，以减少数据冗余和提高数据质量。将重复性的数据去除后剩余239条数据。</p>
+<p>（2）数据转换和规范化，其中企业成立年限需要根据企业的注册日期计算出相应的年限；对于分类变量客户经营状态、ISO资格认证、是否有逾期记录、其他不良记录、是否上市、经营负荷情况、是否已投保信用险、是否关联担保公司的指标数据规范成为0和1；是否为新客户，新客户值为1，老客户值为0；因变量是否逾期也规范为0和1，其中0表示否定，1表示肯定。</p>
+<p>本研究将企业成立年限作为分类变量，根据成立年限的长短，将企业成立年限划分为不同的级别，每一级别给定一个具体的分数范围，以便进行量化考核。以下表格是企业成立年限处理后的结果。</p>
+<div class="tabular">
+<p><span>ccc</span> <span><strong>指标名称</strong></span> &amp;
+<span><strong>评分标准</strong></span> &amp;
+<span><strong>分值</strong></span><br />
+企业成立年限YOE &amp; y≥10年 &amp; 1.0<br />
+&amp; 5年≤y＜10年 &amp; 0.7<br />
+&amp; 3年≤y＜5年 &amp; 0.4<br />
+&amp; 1年≤y＜3年 &amp; 0.2<br />
+&amp; y＜1年 &amp; 0<br />
+</p>
+</div>
+<p>（3）对连续变量数据的归一化。</p>
+<p>对其他连续变量本文采用最小-最大归一化Min-Max
+Normalization标准化，是一种常用的数据预处理技术，用于将数据缩放到一个特定的范围，通常是0到1之间。这种方法对于消除数据中的量纲和量纲单位的影响非常有用，使得不同特征或指标之间可以进行比较和加权。最小-最大归一化的数学公式如下：</p>
+<p><span class="math display">$$x^{'} = \frac{x -
+min(x)}{max(x)-min(x)}$$</span></p>
+<p>其中，x 是原始数据集中的某个特征值,min(x)
+是该特征在所有数据中的最小值,max(x) 是该特征在所有数据中的最大值,<span
+class="math inline"><em>x</em><sup>′</sup></span>是归一化后的值，它将落在0到1的范围内。</p>
+<h3 id="单因素logistic回归分析">单因素Logistic回归分析</h3>
+<p>单独考察每一个自变量对因变量的净效应，有助于更深入地理解每一个因素在整体模型中的作用和贡献。为了检测单一因素对是否逾期这一因变量的影响，判断这些自变量和因变量之间的关系是否显著，了解自变量如何影响因变量的概率，保留显著的自变量。单因素的数学模型构建如下：</p>
+<p><span class="math display">$$ln(\frac{p}{1-p}) = \beta_0+ \beta_i
+X_i$$</span></p>
+<p>本公式为公式2.3变量个数为1的情况，<span
+class="math inline"><em>β</em><sub>0</sub></span>为常量，<span
+class="math inline"><em>X</em><sub><em>i</em></sub></span>是自变量，<span
+class="math inline"><em>β</em><sub><em>i</em></sub></span>是自变量的系数。</p>
+<p>对标准化后的19个自变量逐一与是否逾期进行二元Logistic逻辑回归，利用SPSS工具进行回归得到的显著性P值表如下：</p>
+<p>在统计学中，通常使用P值（P-value）来衡量某一变量或因素对研究结果的影响是否显著。Logistic二元逻辑回归的显著性水平通常是通过统计检验来确定的，例如使用p值来判断某个自变量是否对因变量有显著影响。显著性水平是一个预设的阈值，用于决定是否拒绝原假设（即认为自变量对因变量没有影响）。常见的显著性水平有0.05、0.01等，这意味着如果p值小于这些阈值，就拒绝原假设，认为自变量对因变量有显著影响。</p>
+<p>由于本次研究所涉及的数据量相对较小，而且单因素分析也是初步筛选指标，为了充分利用有限的数据资源并尽可能保留与因变量“是否逾期”相关的指标，决定将显著性水平扩展到0.3。若变量的p值&lt;=0.3则就被纳入下一步骤的多因素分析中。观察上述表格的数据，可以发现是否关联担保公司、经营负荷情况、是否上市、是否有逾期记录、应收账款周转率、客户经营状态、资产负债率、销售毛利率、现金比率、以及销售净利率这十个自变量在统计检验中的显著性水平均低于0.3。这意味着这些变量在模型中具有较高的解释力，能够有效地反映出因变量的变化。因此，将这十个指标纳入Logistic多因素回归模型中，不仅是统计上的合理选择，更是为了更全面、更准确地揭示各因素之间的复杂关系及其对因变量的综合影响。</p>
+<h3 id="多因素logistic回归分析">多因素Logistic回归分析</h3>
+<p>通过单因素分析，筛选出了10个与因变量是否逾期FutureOverdueFlag显著性较高的自变量。本文将充分利用这10个经过初步筛选和显著性水平放宽后保留的重要指标，进行多因素的二元Logistic回归分析。多因素二元Logistic逻辑回归的数学模型为公式2.3。利用SPSS工具，对数据进行了多因素的二元Logistic回归分析，采用了向后LR（向后似然比）的方法，设定步进概率为0.3，即当某个自变量的显著性水平大于0.3时，该自变量将被从模型中移除。模型最终迭代了4次后收敛，得到了包含6个自变量的模型，详情如下:</p>
+<p>多因素分析继续使用显著性&lt;0.3作为检测标准，筛选了自变量，以确保所选指标对因变量“是否逾期”具有一定的解释力。在分析后得出的上表中，经营负荷情况、现金比率、应收账款周转率、是否有逾期记录、是否上市以及销售净利率这六个指标的显著性均小于0.3。</p>
+<p>这些指标的显著性水平低于设定的阈值，表明它们在模型中起到了重要的作用，能够显著影响因变量“是否逾期”的变化。经营负荷情况反映了企业运营的压力和效率，其显著性说明了经营状况对逾期风险的影响；现金比率则体现了企业的流动性状况，对逾期风险具有直接的指示作用；应收账款周转率则揭示了企业应收账款的回收速度，与逾期风险密切相关。</p>
+<p>此外，是否有逾期记录作为衡量企业信用状况的重要指标，其显著性小于0.3，进一步验证了信用历史对逾期风险的影响；是否上市则反映了企业的资本结构和市场监管情况，对逾期风险也有一定的影响；销售净利率则体现了企业的盈利能力和经营效率，对逾期风险同样具有解释力。</p>
+<p>综上所述，这六个指标的显著性均小于0.3，基于这些重要指标，成功构建了一个回归模型。该模型不仅准确地反映了这些自变量与因变量之间的关系，还为后续的风险评估和决策制定提供了有力的数据支持。构建的回归模型如下：
+<span class="math display">$$\begin{split}
+	ln(\frac{p}{1-p}) &amp;= 0.913-1.138OLC-0.557CASHR-3.792ARTR \\
+	&amp;+0.61OverdueFlag-1.404ListedFlag-2.94NPM
+\end{split}$$</span></p>
+<h3 id="指标体系合理性检验">指标体系合理性检验</h3>
+<p>1.完备性检验</p>
+<p>筛选出的6个指标经营负荷情况、现金比率、应收账款周转率、是否有逾期记录、是否上市以及销售净利率，在构建逾期风险模型时，涵盖了逾期风险的主要方面：</p>
+<p>经营负荷情况：这一指标反映了企业的运营压力和效率。过高的经营负荷可能意味着企业面临较大的运营风险，从而增加逾期风险。因此，经营负荷情况是评估企业逾期风险的重要因素之一。</p>
+<p>现金比率：现金比率是企业现金及现金等价物与流动负债的比值，反映了企业的短期偿债能力。现金比率较低的企业可能面临现金流紧张的问题，从而增加逾期风险。因此，现金比率是衡量企业逾期风险的重要指标。</p>
+<p>应收账款周转率：应收账款周转率反映了企业应收账款的回收速度。周转率较低可能意味着企业应收账款回收困难，导致现金流紧张，进而增加逾期风险。因此，应收账款周转率也是评估企业逾期风险的重要方面。</p>
+<p>是否有逾期记录：这一指标直接反映了企业的信用状况。有逾期记录的企业在未来发生逾期的可能性相对较高。因此，是否有逾期记录是判断企业逾期风险的重要依据。</p>
+<p>是否上市：上市与否反映了企业的资本结构和市场监管情况。上市公司通常受到更严格的监管和信息披露要求，这有助于降低逾期风险。因此，是否上市也是评估企业逾期风险的一个方面。</p>
+<p>销售净利率：销售净利率反映了企业的盈利能力和经营效率。净利率较低的企业可能面临较大的经营压力，从而增加逾期风险。因此，销售净利率也是衡量企业逾期风险的重要指标之一。</p>
+<p>总之，选出的此6个指标能够很好地解释逾期风险。这些指标从不同维度反映了企业的运营状况、财务状况、信用状况以及市场状况，从而全面评估了企业的逾期风险。
+2.拟合程度</p>
+<p>基于3.1.6构建的二元Logistic回归模型，该模型的Hosmer-Lemeshow检验显著性如下表：</p>
+<div id="tab:papercomponents">
+<table>
+<caption>霍斯默-莱梅肖检验</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">卡方</th>
+<th style="text-align: center;">自由度</th>
+<th style="text-align: center;">显著性</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">10.287</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">0.245</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Hosmer-Lemeshow检验的显著性为0.245表明该检验的p值（概率值）为0.245,在统计学中，通常将p值与一个预定的显著性水平（如0.05）进行比较，以判断模型拟合优度的好坏。如果p值大于显著性水平，则通常认为模型的拟合程度是可以接受的，即模型预测的结果与实际观测结果之间的差异并不显著。本模型的p值为0.245，模型的拟合程度较好。
+3.模型的准确率 根据表可以看到：</p>
+<div id="tab:papercomponents">
+<table>
+<caption>分类表</caption>
+<tbody>
+<tr class="odd">
+<td rowspan="3" style="text-align: center;">是否逾期</td>
+<td style="text-align: center;"></td>
+<td colspan="3" style="text-align: center;">预测</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td colspan="2" style="text-align: center;">预测</td>
+<td style="text-align: center;">正确百分比</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td rowspan="2" style="text-align: center;">是否逾期</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">178</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">93.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">43</td>
+<td style="text-align: center;">87.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">总体百分比</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">92.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>模型的准确率为92.4%，有较强的预测能力。在预测客户未来信用情况时，该模型的结果与客户的信用等级相结合，将提供更具参考价值的洞察。因此，此模型在预测A公司企业客户未来是否会发生逾期行为方面，具有较高的实用性和准确性。</p>
+<h2 id="基于bp神经网络构建评价模型">基于BP神经网络构建评价模型</h2>
+<h3 id="数据筛选与描述">数据筛选与描述</h3>
+<p>在指标构建章节的基础上，已经筛选了六个关键指标，这些指标对客户未来是否会发生逾期行为具有显著影响。本章节将利用这六个指标，构建一套全面而精准的信用评价模型。该模型不仅能够生成客户的信用等级，还能预测客户未来是否存在逾期风险。之所以同时提供这两个结果，是因为即使客户的信用等级很高，也不能百分之百地保证他们未来不会逾期。信用评价等级主要是基于客户过去的信用记录和行为进行预测和评估的，然而，过去的记录并不能完全代表未来的行为。因此，在给出信用等级的同时，还提供了未来逾期风险的判断，旨在为A公司在设定客户信用额度和制定账期时提供更为全面、科学的参考依据。这样，A公司可以更加精准地管理信用风险，优化资源配置，从而实现更为稳健和可持续的发展。输入输出字段详见表12：</p>
+<div id="tab:papercomponents">
+<table>
+<caption>BP神经网络输入输出参数</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span><strong>类型</strong></span></th>
+<th style="text-align: center;"><span><strong>参数</strong></span></th>
+<th style="text-align: center;"><span><strong>符号</strong></span></th>
+<th
+style="text-align: center;"><span><strong>参数类型</strong></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">输入</td>
+<td style="text-align: center;">现金比率</td>
+<td style="text-align: center;">CASHR</td>
+<td style="text-align: center;">连续变量</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">应收账款周转率</td>
+<td style="text-align: center;">ARTR</td>
+<td style="text-align: center;">连续变量</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">经营负荷情况</td>
+<td style="text-align: center;">OLC</td>
+<td style="text-align: center;">二分类 0-否 1-是</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">是否有逾期记录</td>
+<td style="text-align: center;">OverdueFlag</td>
+<td style="text-align: center;">二分类 0-否 1-是</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">是否上市</td>
+<td style="text-align: center;">ListedFlag</td>
+<td style="text-align: center;">二分类 0-否 1-是</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">销售净利率</td>
+<td style="text-align: center;">NPM</td>
+<td style="text-align: center;">连续变量</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">输出</td>
+<td style="text-align: center;">未来是否逾期</td>
+<td style="text-align: center;">FutureOverdueFlag</td>
+<td style="text-align: center;">二分类 0-否 1-是</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">信用等级</td>
+<td style="text-align: center;">CreditRating</td>
+<td style="text-align: center;">多分类 值为1-5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在此BP神经网络模型中，输入层选取了六个关键指标，这些指标旨在全面捕捉客户信用的多个维度。而输出层，则聚焦于两个核心变量：“是否逾期”和“信用等级”。这两个变量对于评估客户的信用风险具有至关重要的作用。</p>
+<p>经过二元Logistic回归的筛选，确定的六个指标，A公司的国外客户同样能够提供这六个指标的数据，本文将这部分客户的数据也纳入BP神经网络的训练中。这一举措不仅丰富了数据集，使其更具多样性和代表性，而且有望进一步提升BP神经网络模型的准确性和泛化能力。通过融入国外客户的数据，能够更全面地捕捉不同市场环境下的信用特征，从而为A公司提供更为精准和可靠的信用风险评估服务。收集到的数据集为595条，通过对这595条数据的深入分析和学习，期望构建的BP神经网络模型将能够更准确地捕捉客户信用的内在规律，为A公司提供更为精准、可靠的信用风险评估和决策支持。本文的输入特征变量只有6个，而且这6个变量对客户的信用情况具有很高的解释性和预测能力，而且这些数据均为真实业务数据，使用P神经网络能够捕捉到这些变量中的潜在规律和模式，实现对客户信用情况的准确预测，也能为模型提供有效的学习信息。</p>
+<p>“信用等级”这一关键输出，因为目前无法在各大评级机构中获取到A公司客户的信用等级。A公司已经建立了一套完善的客户等级评价体系，该体系在每次信用申请时都会为客户进行详尽的测评。这套评价系统是由大公国际信用评级集团有限公司倾力打造的，确保了评价标准的专业性和权威性。从而得出具有参考价值的信用等级。</p>
+<p>同时，在评级过程中，A公司的多个关键部门，包括财务部门、信用管理部门以及法务部门等，都会进行逐层审核。这种跨部门的合作与审核机制，进一步提升了信用评级的准确性和可信度。因此，将这些经过严格审核的信用等级作为BP神经网络输出层的一部分，将为此模型提供强有力的支持，使其能够更加精准地预测客户的信用风险。</p>
+<h3 id="数据预处理">数据预处理</h3>
+<p>在进行BP神经网络模型构建之前，数据预处理工作显得至关重要。为了确保神经网络训练的稳定性和高效性，需要对数据进行一系列预处理操作，包括标准化、归一化等。这些步骤能够消除不同特征之间的量纲差异，使得网络能够更容易地捕捉到数据中的内在规律。</p>
+<p>在本文中，“是否逾期”和“信用等级”作为网络的输出层，都是分类变量。对于“是否逾期”这一变量，将此变量表示为0和1，其中0代表未逾期，1代表逾期。这种简洁的表示方法有助于神经网络更好地学习和预测逾期情况。</p>
+<p>而对于“信用等级”这一输出层变量，本文沿用了A公司现有的评级制度。A公司的信用等级分为五个层级，从高到低分别为AAA、AA、A、B、C。为了方便神经网络处理，将这些等级转换为相应的数值表示，即1、2、3、4、5。这种数值化的表示方法不仅保留了信用等级的原始信息，还使得神经网络能够更容易地处理和理解这一输出层变量。通过这样的预处理操作，可以为后续的BP神经网络训练奠定坚实的基础，提升模型的性能和准确率。
+等级设置规则和变量设置如下表：</p>
+<div class="tabular">
+<p><span>ccc</span> <span><strong>等级</strong></span> &amp;
+<span><strong>变量设置</strong></span> &amp;
+<span><strong>等级含义说明</strong></span><br />
+AAA &amp; 1 &amp;
+偿还债务的能力极强，基本不受不利经济环境的影响，违约风险极低。<br />
+AA &amp; 2 &amp;
+偿还债务的能力很强，受不利经济环境的影响不大，违约风险很低。<br />
+A &amp; 3 &amp;
+偿还债务能力较强，较易受不利经济环境的影响，违约风险较低。<br />
+B &amp; 4 &amp;
+偿还债务能力一般，受不利经济环境影响较大，违约风险一般。<br />
+C &amp; 5 &amp;
+偿还债务能力较弱，受不利经济环境影响很大，有较高违约风险。<br />
+</p>
+</div>
+<p>现金比率、应收账款周转率、销售净利率为连续变量，需做归一化处理。其余三个输入变量均为二分类变量，分类变量的输入数据是不需要进行归一化处理的。</p>
+<p>对于连续变量，现金比率、应收账款周转率和销售净利率，为了确保这些变量在神经网络中能够被平等对待，并防止某些特征对模型训练产生过大的影响，需要对这些连续变量进行归一化处理。归一化可以将这些变量的数值范围缩放到一个共同的标准区间[0,1]，从而消除量纲差异，使得网络能够更好地捕捉数据中的内在模式。</p>
+<p>本文中的其余三个输入变量，情况则有所不同。这些分类变量通常表示某种属性或状态的存在与否，其取值往往是离散的，如0和1。由于这些变量本身就不具有连续的数值范围，因此不需要进行归一化处理。在神经网络中，这些二分类变量可以直接以独热编码（one-hot
+encoding）或标签编码（label
+encoding）的形式输入，以便模型能够正确地处理和理解这些分类特征。通过这样的处理方式，可以确保不同类型的数据在BP神经网络模型中都得到适当的处理，从而提升模型的性能和准确性。</p>
+<h3 id="模型建立">模型建立</h3>
+<p>1.模型结构设置</p>
+<p>基于BP神经网络的信用评价模型建模流程图如下：</p>
+<figure>
+<img src="../../../../../pictures/bpprocess.png" />
+<figcaption>BP神经网络模型构建过程图</figcaption>
+</figure>
+<p>BP神经网络是一种强大的多层前馈网络，其结构主要由输入层、隐藏层和输出层构成。每个神经元都与前一层的所有神经元通过权重连接，形成了密集的全连接模式。这种结构使得BP神经网络能够捕捉和表达复杂的非线性关系。</p>
+<p>在构建BP神经网络时，网络的结构设计是至关重要的。它需要根据系统的输入输出数据特点来确定。具体而言，输入层的节点数应当与输入特征的维度完全匹配，以确保每一个特征都能被网络有效地捕获。对于输出层，其节点数则通常根据问题的性质来设定：在二分类问题中，输出层通常有一个节点；而在多分类问题中，则会有多个节点。</p>
+<p>至于隐藏层，其节点数和层数的选择则相对灵活，往往需要根据实际情况进行调整。隐藏层的存在为网络提供了“深度”，使其能够学习并表达更复杂的模式和关系。通过适当地增加隐藏层的节点数或层数，网络可以更好地拟合数据，但也可能导致过拟合的风险增加。因此，在选择隐藏层的结构时，需要权衡好模型的复杂度和泛化能力。</p>
+<p>在本模型中，考虑到输入层有6个指标，因此输入层应设置6个节点。而输出层由于有两个指标需要预测，故应设置2个节点。对于隐藏层，可以参考一些经验公式或理论来设定其节点数。根据公式2.6，设定隐藏层的节点数为10。因此，本模型的BP神经网络结构最终确定为6-10-2。</p>
+<p>在训练这个BP神经网络时，使用了总共595条数据。为了有效地评估模型的性能并防止过拟合，将这些数据划分为训练集、测试集和验证集。其中，训练数据有500条，用于训练网络并调整其权重和偏置,寻找到最优参数；测试数据有50条，用于在训练过程中实时评估模型的性能；验证数据有45条，用于在第四章对模型进行最终的评估。这种数据划分方式有助于全面、客观地了解模型的性能，并为其后续的优化提供有力的支持。</p>
+<p>所建设的BP神经网络模型结构图如下：</p>
+<p>2.函数选取和参数设定</p>
+<p>BP神经网络在构建以及训练过程中，涉及多个关键的函数和参数，这些函数和参数的选择会影响到模型建设效果。下图是网络在训练过程中所需要计算的流程图：</p>
+<figure>
+<img src="../../../../../pictures/bptrain.png" />
+<figcaption>BP神经网络训练流程图</figcaption>
+</figure>
+<p>（1）函数的选取</p>
+<p>BP神经网络在构建过程中，涉及多种函数，主要涉及激活函数、学习函数、性能函数、初始化函数、传递函数。这些函数在神经网络的构建、训练和性能评估过程中起着关键作用。</p>
+<p>激活函数是神经网络中非常关键的一个组件，它决定了神经元如何对其输入进行非线性变换。因为本研究的输出层两个指标，一个指标为是否逾期，该指标作为输出层是为二分类变量，选取Sigmoid函数，即logsig，该函数常用于二分类问题的输出层，将数据映射到0和1之间；另一个指标是客户的信用等级，该指标作为输出层是多分类变量，可选择Softmax函数，该函数常用于多分类问题，输出层将数据映射到一个概率分布上。</p>
+<p>学习函数定义了如何根据网络的误差来调整权重，本文采用梯度下降法来作为学习函数，梯度下降法是根据误差的梯度更新权重，是一种通用的优化算法，可以应用于多种类型的神经网络和机器学习模型，并且允许允许用户设置学习率，这是一个重要的超参数，可以控制权重更新的步长，通过调整学习率，可以平衡算法的收敛速度和稳定性。较小的学习率可能导致收敛速度较慢，而较大的学习率可能导致算法在最优解附近振荡。</p>
+<p>性能函数定义了如何度量神经网络的输出与真实值之间的差异。不同的性能函数对应着不同的误差度量方式，如均方误差、交叉熵误差等。本文采用交叉熵误差作为模型的性能函数。交叉熵误差是专门为分类问题设计的性能函数。对于多分类问题，交叉熵误差能够衡量预测概率分布与真实概率分布之间的差异，从而指导网络进行正确的分类。与均方误差等性能函数相比，交叉熵误差在训练初期不会导致梯度消失问题。这是因为交叉熵误差的梯度与激活函数的导数无关，从而避免了因激活函数饱和而导致的梯度消失。而且交叉熵误差的梯度计算简单且稳定，网络在训练过程中能够更快地收敛到最优解。</p>
+<p>（2）参数的设置</p>
+<p>学习率用于控制参数更新速度的超参数。它决定了权重调整的幅度，过大可能导致参数更新过快而错过最优解，过小可能导致收敛速度过慢。通常学习率的取值范围在0.001到0.1之间，本文设置的学习率为0.01。</p>
+<p>迭代次数的设置是网络在停止训练之前可以进行的最大迭代次数。迭代次数过多可能导致过拟合，过少可能导致训练不足。通常，初始时可以设置较大的迭代次数，然后根据训练收敛情况逐渐减小。本文经过多轮训练测试，设置的迭代次数为10000。</p>
+<p>误差阈值（通常称为“停止训练条件”或“误差目标”）是一个用于决定何时停止训练过程的参数。它代表网络训练过程中期望达到的误差水平。当网络的训练误差低于这个阈值时，训练过程将停止。本研究在实验过程中对误差阈值经过多轮的调试，初始时，设置一个相对较高的误差阈值0.01。这样的设置可以为网络提供足够的训练时间，使其能够从数据中学到更多的信息。后面根据模型结果展示的趋势进行逐步减小误差阈值，最终模型设置的误差阈值为0.001.</p>
+<h3 id="模型训练">模型训练</h3>
+<p>BP神经网络的训练过程是通过反向传播算法来不断调整网络中的权重和偏置，使得网络的输出尽可能接近真实值，从而实现模型的优化和学习。
+本研究将使用归一化处理后的220个样本数据来进行模型的训练，使用MATLAB
+R2024来编写训练代码,代码详见附录1。经过多次训练后得出的结果图形如下:</p>
+<figure>
+<img src="../../../../../pictures/xunlian.png" />
+<figcaption>训练集预测结果对比图</figcaption>
+</figure>
+<figure>
+<img src="../../../../../pictures/ceshi.png" />
+<figcaption>测试集预测结果对比图</figcaption>
+</figure>
+<figure>
+<img src="../../../../../pictures/xingneng.png" />
+<figcaption>性能图</figcaption>
+</figure>
+<p>从图形结果上可以看出，输出结果为0和1，即是否逾期的拟合效果（可计算出准确度，待实现）较好，而信用评级得出的拟合效果较差一些，之所以出现这种效果是因为输入的参数与是否逾期的关联度经过Logistic的筛选关联度较高，而信用评价的预测是根据A公司原有的指标计算出的等级，关联度相对较低，但预测出的结果却能更好的反应真实的等级水平，从图中可以看到，大多数情况下（需要计算出具体的数值），如果某个企业预测出逾期，那这个企业的信用等级预测就会比A公司预测出的级别要低，这更能反应出企业未来的还款情况。</p>
+<h1 id="a公司信用评价及改进建议">A公司信用评价及改进建议</h1>
+<h2 id="a公司信用评价体系概况">A公司信用评价体系概况</h2>
+<p>A公司的信用评价体系是在2019年由大公国际信用评级有限公司所建设，它采用了一套经过深入研究和实践验证的传统评分卡方法。这种方法，源于严谨的统计学原理与丰富的行业经验规则，为信用评估提供了可靠的基础。评分卡模型作为这一方法的核心，能够综合考量客户的多样化信息和关键指标，通过精确的数据分析和科学的权重分配，为每个客户生成一个客观公正的信用评分。这一评分不仅直观地反映了客户的信用状况，而且为A公司提供了判断客户信用等级的重要依据。通过这套体系，A公司能够更加准确地评估客户的信用风险，为公司的业务决策和风险管理提供了有力支持。</p>
+<p>该套信用评价体系涵盖了众多评价指标，旨在全面评估客户的信用状况。然而，评分方法的一个基本假设是这些指标之间是相互独立的，即它们各自对信用评分的影响是互不干扰的。这一假设虽然简化了评分模型的构建过程，但也忽略了指标之间可能存在的相互作用和复杂关系。在实际情况中，这些指标往往相互关联，共同影响着客户的信用状况。因此，忽略这种相互作用可能导致评分模型过于简化，无法准确捕捉客户信用的真实情况。</p>
+<p>此外，该体系在评分过程中还涉及主观的评分及标准分值制定环节。这些环节往往依赖于评估人员的经验和判断，因此存在一定的主观性和不确定性。不同的评估人员可能会根据自己的理解和偏好来制定评分标准和分值，从而导致评价结果的不一致性。这种主观性和不确定性可能会对信用评价的准确性和公正性产生负面影响，使得评价结果难以被客观验证和比较。</p>
+<p>因此，虽然该套信用评价体系在一定程度上能够评估客户的信用状况，但由于其简化模型结构和主观评分环节的存在，评价结果可能不够准确和客观。为了提高信用评价的准确性和可靠性，需要进一步完善评分方法，考虑指标之间的相互作用和复杂关系，并减少主观性和不确定性的影响。</p>
+<p>随着A公司的业务发展，面临更多的客户和更复杂的信用风险，该套体系计算出的客户信用等级对业务判断的准确性逐渐失去参考意义。在制定客户的应收账款账期时，新增了授信建议的环节，即由信用管理部门的人员给客户制定一个账期，最终使用的为建议过的账期，而且对比历史数据，该套体系最终得出的账期与建议的账期逐渐发生偏离，
+因此需要更加准确和精细的客户信用评估工具来帮助公司做出更好的决策。</p>
+<p>随着A公司业务的不断扩张，公司所面临的客户群体日益庞大，信用风险也呈现出更加复杂多变的态势。在这样的背景下，原有的信用评价体系逐渐显露出其局限性，计算出的客户信用等级对业务判断的参考价值逐渐减弱。为了更好地适应业务发展的需求，A公司在制定客户的应收账款账期时，新增了授信建议环节。这一环节由信用管理部门的专业人员根据客户的具体情况，结合市场环境和公司策略，为客户制定一个合理的账期。然而，在实际操作过程中，发现该套体系最终得出的账期与信用管理部门建议的账期逐渐产生了偏离。</p>
+<p>这种偏离不仅影响了公司对应收账款管理的准确性，也增加了业务决策的风险。为了解决这个问题，A公司急需寻找更加准确、精细的客户信用评估工具。这种工具需要能够综合考虑客户的各项信息和指标，深入挖掘指标之间的相互作用和复杂关系，从而更准确地评估客户的信用状况。</p>
+<p>通过引入更加科学的客户信用评估工具，A公司可以更加精准地把握客户的信用风险，提高业务决策的质量和效率。这将有助于公司优化应收账款管理，降低坏账风险，进而提升整体盈利能力和市场竞争力。</p>
+<h2
+id="基于机器学习的a公司企业客户信用评价体系">基于机器学习的A公司企业客户信用评价体系</h2>
+<p>本文所研究的信用评价模型，其核心在于采用了第3.1节中详细阐述的指标评价体系。这一体系经过精心构建和深入研究，旨在更全面地反映客户的信用状况。值得注意的是，这一新体系中包含的部分指标，在A公司原有的信用评价体系中并未涉及。在A公司原有的信用评价体系中，存在部分冗余指标。这些指标在评价客户的信用状况时，其贡献度和影响力相对较低，对整体信用评价结果的贡献并不显著。因此，这些冗余指标在信用评价过程中的存在意义不大，不仅增加了评价体系的复杂性，还可能干扰评价结果的准确性。</p>
+<p>原有评价体系虽然在一定程度上能够评估客户的信用水平，但受限于其指标选择的范围，可能无法全面捕捉客户的信用特征。而新加入的指标，不仅涵盖了更多维度的信息，还能够深入挖掘客户信用状况的内在规律和趋势。这些新增指标的存在，使得信用评价模型更加完善和科学，为A公司提供了更准确的客户信用评估依据。以下为各指标在A公司原有信用评价体系中的存在情况：</p>
+<div id="tab:papercomponents">
+<table>
+<caption>基于机器学习的A公司企业客户信用评价体系</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span><strong>指标</strong></span></th>
+<th
+style="text-align: center;"><span><strong>是否为A公司元评价体系指标</strong></span></th>
+<th style="text-align: center;"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">是否上市</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">经营负荷情况</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">现金比率</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">应收账款周转率</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">是否有逾期记录</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">销售净利率</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="数据描述及处理">数据描述及处理</h3>
+<p>该模型的核心预测目标是A公司企业客户的信用等级以及这些企业客户未来是否会发生逾期情况。对于未来逾期的定义，设定为：若某客户在未来6个月内发生任何逾期行为，则认定该客户为逾期状态。为了验证该模型的预测准确性和有效性，本文选取了A公司信用系统中2024年以后的数据，共有23条记录，作为专门的验证数据集。这些验证数据可以客观地评估模型在真实环境中的表现，确保它能够准确预测企业客户的信用等级及未来逾期情况，为A公司的风险管理提供有力支持。验证数据如下表；</p>
+<div class="tabular">
+<p><span>ccccccccc</span> <span><strong>序号</strong></span>
+&amp;<span><strong>ISO资格认证</strong></span> &amp;
+<span><strong>现金比率</strong></span> &amp;
+<span><strong>应收账款周转率</strong></span> &amp;
+<span><strong>是否有逾期记录</strong></span>&amp;
+<span><strong>是否上市</strong></span>&amp;
+<span><strong>是否已投保信用险</strong></span>&amp;
+<span><strong>信用等级</strong></span>&amp;
+<span><strong>是否逾期</strong></span><br />
+&amp;0 &amp; 0.08 &amp; 1.31 &amp; 0 &amp; 0 &amp; 0 &amp; C &amp;
+0<br />
+2&amp;0 &amp; 0.33 &amp; 4.06 &amp; 0 &amp; 1 &amp; 0 &amp; AAA &amp;
+0<br />
+3&amp;0 &amp; 0.12 &amp; 1.09 &amp; 0 &amp; 0 &amp; 0 &amp; A &amp;
+1<br />
+4&amp;1 &amp; 0.29 &amp; 7.26 &amp; 1 &amp; 0 &amp; 0 &amp; B &amp;
+0<br />
+5&amp;0 &amp; 1.31 &amp; 3.26 &amp; 0 &amp; 1 &amp; 0 &amp; B &amp;
+0<br />
+6&amp;0 &amp; 0.43 &amp; 4.38 &amp; 1 &amp; 0 &amp; 0 &amp; A &amp;
+0<br />
+7&amp;1 &amp; 0.87 &amp; 3.92 &amp; 0 &amp; 0 &amp; 1 &amp; A &amp;
+1<br />
+8&amp;0 &amp; 0.54 &amp; 5.31 &amp; 0 &amp; 0 &amp; 0 &amp; AAA &amp;
+1<br />
+9&amp;0 &amp; 0.41 &amp; 3.62 &amp; 0 &amp; 0 &amp; 0 &amp; B &amp;
+0<br />
+10&amp;0 &amp; 0.51 &amp; 133.45 &amp; 0 &amp; 0 &amp; 0 &amp; AAA &amp;
+0<br />
+11&amp;0 &amp; 0.37 &amp; 6.49 &amp; 0 &amp; 0 &amp; 0 &amp; AA &amp;
+0<br />
+12&amp;0 &amp; 0.03 &amp; 15.61 &amp; 0 &amp; 0 &amp; 0 &amp; B &amp;
+0<br />
+13&amp;0 &amp; 0.12 &amp; 1.09 &amp; 1 &amp; 0 &amp; 0 &amp; B &amp;
+1<br />
+14&amp;0 &amp; 0.41 &amp; 3.42 &amp; 0 &amp; 1 &amp; 0 &amp; A &amp;
+0<br />
+15&amp;0 &amp; 1.19 &amp; 25.49 &amp; 0 &amp; 1 &amp; 0 &amp; AAA &amp;
+0<br />
+16&amp;0 &amp; 0.43 &amp; 4.38 &amp; 1 &amp; 0 &amp; 0 &amp; A &amp;
+0<br />
+17&amp;0 &amp; 0.81 &amp; 4.11 &amp; 1 &amp; 1 &amp; 0 &amp; AA &amp;
+0<br />
+18&amp;0 &amp; 2.72 &amp; 6.74 &amp; 0 &amp; 0 &amp; 0 &amp; AAA &amp;
+0<br />
+</p>
+</div>
+<p>此23条数据中有逾期记录的有2条，占比22%，其中1个企业评级为AAA，2个企业评级为A，1个企业评级为B。将使用者18条数据来验证上一章节中构建的BP神经网络。</p>
+<h3 id="模型调用">模型调用</h3>
+<p>首先将此18条数据使用最小-最大归一化方法来进行归一化处理，将数据归一化值[0,1]区间内。将此数据代入已构建的模型中。将输出结果进行分类后与真实的输出进行对比。以下是模型的验证情况：</p>
+<figure>
+<img src="../../../../../pictures/yanzhengjieguo.png" />
+<figcaption>验证结果结果对比图</figcaption>
+</figure>
+<p>从图中可以看到信用等级，预测准确的有10个，准确率为56</p>
+<h3 id="结果分析">结果分析</h3>
+<p>信用等级是对企业信用能力和还款意愿的综合评估，等级高低可以反映企业的信用状况和履约能力。信用等级高并不意味着企业客户一定不会逾期。尽管信用等级高的企业客户在信用评估中表现出色，具有较低的信用风险和良好的还款能力，但这并不意味着他们完全没有违约或逾期的可能性。在实际业务中，各种不可预见的情况和突发事件可能导致企业客户无法按时偿还债务。因此，信用等级高可以作为评估企业或个人信用状况的一个重要参考指标，但不能完全保证不会逾期。</p>
+<p>本文在构建信用评价模型时，分别在信用等级和未来是否会逾期这两个方面进行了预测。在指标筛选方面，本文在了财务指标、业务指标、企业资质相关指标这三个一级指标下，选取了23个指标来筛选客户未来是否会逾期的影响因素，采用二元Logistic回归分析方法，Logistic模型的输出为客户未来6个月是否会逾期，利用A公司的客户的历史数据作来做模型分析，最终筛选出6个影响指标，建立起客户信用评价指标。在经过模型验证之后，得出该套指标体系能较好的反映出A公司企业客户未来是否会逾期。在构建评价模型方面，使用BP神经网络构建立了适用于A公司的企业客户信用评价模型，输入为构建起的6个指标体系，输出为是客户信用等级和未来是否会逾期。构建了三层的神经网络，经过多次训练与调参，得出一套拟合程度较好的网络模型。最后基于该模型,使用A公司近半年的客户数据作为验证，</p>
+<p>本研究中同样存在不足之处，因为本研究是基于已有结果去预测未来的数据，已有结果包括未来是否逾期和信用评价等级，这些数据均采用A公司信用评价系统的相关数据，数据不具有公开性，而且对于未来是否有逾期是基于A公司现有的业务判断逻辑来定义；信用评价等级因为多数客户的信用等级无法获取，所以使用的是信用管理系统现有的评价等级。
+使用特定公司的业务数据不具有广泛的代表性，无法全面反映整个行业或市场的状况，所以研究的评价模型有一定的局限性。</p>
+<p>两年的读研生涯，一转眼就过去了，还记得报到时的场景，仿佛就在不久前，就这样一瞬间，仿佛时空穿梭一般，到了说再见的时刻。这两年收获良多，收获了成长，收获了友情
+。在我的学习和论文写作中，有许多人给予了我悉心的指导和帮助，在此我要向他们表示最诚挚的感谢。</p>
+<p>我要衷心感谢我的指导老师张军欢教授。张教授在整个论文写作过程中给予了我耐心细致的指导和无私的帮助，在我遇到模型数据的采集和分析过程中出现的难题，给予了我很多的帮助和支持，使得我的研究工作能够顺利进行，他的悉心指导让我更深入地了解了管理学的理论知识，提升了我的分析和解决问题的能力，真正领略到了学术研究的乐趣。</p>
+<p>我要衷心感谢我的同事们。在我论文写作的过程中，遇到了许多不懂的业务问题，他们给予了我耐心的解答和帮助，使我能够更好地理解和分析相关业务知识。他们的专业知识和帮助对我完成论文起到了关键作用。</p>
+<p>最后，我要感谢我的家人，在我需要家人支持时，他们做我最坚实的后盾，让我在读书的过程中无后顾之忧。在我需要心理安慰时，他们始终在我身边，给予我足够的鼓励和关怀，让我从困扰的情绪中及时解脱。正是他们的支持和鼓励，才让我能顺利读研和毕业。</p>
+<p>由衷地感谢以上所有给予我帮助和支持的人，正是有了你们的支持和帮助，我才能够顺利完成我的MBA学习和论文写作。再次向你们表示最诚挚的感谢！</p>
+</body>
+</html>

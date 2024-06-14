@@ -1,0 +1,251 @@
+%% %%=================================================================
+%% %% <UTF-8>
+%% %% 北航学位论文模板使用样例
+%% %% 请将以下文件与此LaTeX文件放在同一目录中.
+%% %%-----------
+%% %% buaa.cls                  : LaTeX宏模板文件
+%% %% bst/GBT7714-2005.bst      : 国标参考文献BibTeX样式文件2005(https://github.com/Haixing-Hu/GBT7714-2005-BibTeX-Style)
+%% %% bst/GBT7714-2015.bst      : 国标参考文献BibTeX样式文件2015(https://github.com/zepinglee/gbt7714-bibtex-style)
+%% %% pic/logo-buaa.eps         : 论文封皮北航字样
+%% %% pic/head-doctor.eps       : 论文封皮学术博士学位论文标题(华文行楷字体替代解决方案)
+%% %% pic/head-prodoctor.eps    : 论文封皮专业博士学位论文标题(华文行楷字体替代解决方案)
+%% %% pic/head-master.eps       : 论文封皮学术硕士学位论文标题(华文行楷字体替代解决方案)
+%% %% pic/head-professional.eps : 论文封皮专业硕士学位论文标题(华文行楷字体替代解决方案)
+%% %% tex/*.tex                 : 本模板样例中的独立章节
+%% %%-----------
+%% %% 请统一使用UTF-8编码.
+%% %%=================================================================
+
+%=================================================================
+% buaa基于ctexbook模板
+% 论文样式参考自《研究生手册--二〇二〇年七月》
+%======================
+% 模板导入:
+% \documentclass[thesis,permission,printtype,ostype,<ctexbookoptions>]{buaa}
+%======================
+% 模板选项:
+%======================
+% I.论文类型(thesis)
+%--------------------
+% a.学术硕士论文（master）[缺省值]
+% b.专业硕士论文（professional）
+% c.学术博士论文（doctor）
+% d.专业博士论文（prodoctor）
+%--------------------
+% II.密级(permission)
+%--------------------
+% a.公开（public）[缺省值]
+% b.内部（privacy）
+% c.秘密（secret=secret3）
+% c.1.秘密3年（secret3）
+% c.2.秘密5年（secret5）
+% c.3.秘密10年（secret10）
+% c.4.秘密永久（secret*）
+% d.机密（classified=classified5）
+% d.1.机密3年（classified3）
+% d.2.机密5年（classified5）
+% d.3.机密10年（classified10）
+% d.4.机密永久（classified*）
+% e.绝密（topsecret=topsecret10）
+% e.1.绝密3年（topsecret3）
+% e.2.绝密5年（topsecret5）
+% e.3.绝密10年（topsecret10）
+% e.4.绝密永久（topsecret*）
+%--------------------
+% III.打印设置(printtype)
+%--------------------
+% a.单面打印（oneside）[缺省值]
+% b.双面打印（twoside）
+%--------------------
+% IV.系统类型(ostype)
+%--------------------
+% a.win（oneside）[缺省值]
+% b.linux (linux)
+% c.mac (mac)
+%--------------------
+% V.ctexbook设置选项(<ctexbookoptions>)
+%--------------------
+% ...
+%======================
+% 其他说明:
+% 1. Mac系统请使用mac选项，并使用XeLaTeX编译。
+% 2. 可加入额外ctexbook文档类的选项，其将会被传递给ctexbook。
+%    例如：\documentclass[fontset=founder]{buaa}
+% 3. CTeX在Linux下默认使用Fandol字体，为避免某些生僻字无法显示，在系统已安装方正
+%    字体的前提下可通过fontset=founder选项常用方正字体。
+%=================================================================
+
+% !TeX program = xelatex
+
+%\documentclass[master,privacy,twoside,win]{buaa}
+\documentclass[master,win]{buaa}
+%=================================================================
+% 开启/关闭引用编号颜色：参考文献，公式，图，表，算法 等……
+\refcolor{on}   % 开启: on[默认]; 关闭: off;
+% 摘要和正文从右侧页开始
+\beginright{on} % 开启: on[默认]; 关闭: off;
+% 空白页留字 先留着 后面看是啥方法
+%\emptypagewords{[ -- This page is a preset empty page -- ]}
+
+%=================================================================
+% buaa模板已内嵌以下LaTeX工具包:
+%--------------------
+% ifthen, etoolbox, titletoc, remreset,
+% geometry, fancyhdr, setspace,
+% float, graphicx, subfigure, epstopdf,
+% array, enumitem,
+% booktabs, longtable, multirow, caption,
+% listings, algorithm2e, amsmath, amsthm,
+% hyperref, pifont, color, soul,
+% ---
+% For Win: times
+% For Lin: newtxtext, newtxmath
+% For Mac: times, fontspec
+%--------------------
+% 请在此处添加额外工具包>>
+%\usepackage[numbers]{gbt7714}
+%=================================================================
+% buaa模板已内嵌以下LaTeX宏:
+%--------------------
+% \highlight{text} % 黄色高亮
+%--------------------
+% 请在此处添加自定义宏>>
+
+
+%%=================================================================
+% 论文题目及副标题-{中文}{英文}
+\Title{基于机器学习的A公司企业客户信用评价研究}{Research on Customer Credit Evaluation of Company A Based on Machine Learning}
+
+% 学科大类,默认工学
+ \Branch{工商管理}
+
+% 院系,专业及研究方向
+\Department{经济管理学院}
+\Major{工商管理}
+\Feild{金融科技}
+
+% 导师信息-{中文名}{英文名}{职称}
+\Tutor{张军欢}{Zhang Junhuan}{副教授}
+
+% 学生姓名-{中文名}{英文名}
+\Author{刘玉芳}{Liu Yufang}
+% 学生学号
+\StudentID{ZF2208417}
+
+
+% 中图分类号
+\CLC{F830.91}
+
+% 时间节点-{月}{日}{年}
+\DateEnroll{09}{01}{2022}
+\DateGraduate{06}{30}{2024}
+\DateSubmit{04}{30}{2024}
+\DateDefence{05}{01}{2024}
+
+%%=================================================================
+% 摘要-{中文}{英文}
+\Abstract{%
+  信用评级是用于衡量企业信用风险的工具，是作为企业商业活动或是在金融市场上的重要参考指标。通过评估企业的等级，可以了解该企业的信用质量和偿还能力。
+  
+  客户信用评级是企业为了有效控制客户信用风险，实现信贷资金的安全性、流动性和收益性，从客户经营能力、盈利能力、偿债能力、发展能力，以及客户素质和信用状况等方面，对客户进行综合评价和信用等级的确定。 
+  
+  A公司目前的客户，覆盖全球众多国家及地区，客户信用质量关系到企业经营成败，所以需要密切关注客户的信用状况，并采取相应的客户信用等级评价措施来实时掌握客户的信用状况，制定相应的还款账期，来降低逾期还款风险、保护企业的利益。
+   
+  本文的主要研究工作如下： 
+  
+  （1）针对当前A公司在企业客户信用等级评价上遇到的问题，结合公司的业务背景及国内外相关文献的研究，进行影响企业客户信用指标的分析，采用财务、业务、企业资质方面涉及的23个相关指标，使用二元Logistic回归进行单因素、多因素的分析，最终筛选出6个影响客户未来是否逾期的信用指标。 
+  
+  （2）基于构建企业客户信用等级评价体系的理论模型。结合国内外相关的理论研究，使用收集到A公司企业客户的相关数据作为训练数据，使用BP神经网络算法来进行信用评级模型的建立，并最终使用该模型来预测客户的信用等级及未来6个月内的逾期情况。
+   
+  （3）开展应用研究。以A公司近期的业务数据作为验证数据，结合构建的信用等级模型进行应用实现和分析，得出结论。 
+  
+  总的来说，本文采用文献调研、数学建模的研究方法，结合目前A公司客户信用的业务情况，确定适合A公司所需的客户评价指标体系，并针对选定的信用评价指标进行数学建模，并将收集到的数据进行训练调试，最后使用模型做数据验证，并进行比较，验证新算法的成果。最终得出一套适用于A公司的信用评价体系，该评价体系得到的是A公司企业客户未来是否会逾期和信用等级两个结论，这两个结果都可以作为评定企业客户信用的重要参考依据。
+  
+  }{
+  Credit rating is a tool used to measure corporate credit risk and serves as an important reference indicator for business activities or financial markets. By evaluating the level of a company, one can understand its credit quality and repayment ability.
+  
+  Customer credit rating is a comprehensive evaluation and credit rating determination of customers by enterprises in order to effectively control customer credit risks, achieve the safety, liquidity, and profitability of credit funds, from the aspects of customer management ability, profitability, debt repayment ability, development ability, as well as customer quality and credit status.
+  
+  The current customers of Company A cover numerous countries and regions around the world, and the credit quality of customers is related to the success or failure of business operations. Therefore, it is necessary to closely monitor the credit status of customers and take corresponding credit rating evaluation measures to grasp their credit status in real time, formulate corresponding repayment terms to reduce the risk of overdue repayment and protect the interests of the enterprise.
+  
+  The main research work of this paper is as follows:
+  
+  (1)In response to the current problems encountered by Company A in evaluating the credit rating of enterprise customers, combined with the company's business background and research on relevant literature at home and abroad, an analysis is conducted on the credit indicators that affect enterprise customers. Relevant indicators such as finance, business, and enterprise qualifications are used to analyze the credit evaluation indicator system that affects customers.
+  
+  (2)A theoretical model based on constructing a credit rating evaluation system for enterprise customers. Combining relevant theoretical research at home and abroad, using collected data from Company A's corporate customers as training data, we plan to use a binary logistic regression model to screen evaluation indicators, and use the BP neural network algorithm to establish a credit rating model. Finally, this model will be used to predict the customer's credit rating and future overdue situation.
+  
+  (3)Conduct applied research. Using recent business data of Company A as validation data, combined with the constructed credit rating model for application implementation and analysis, draw conclusions.
+  
+  Through research,, this paper adopts the research methods of literature review and mathematical modeling, combined with the current business situation of A company's customer credit, to determine the customer evaluation index system suitable for A company. Mathematical modeling is carried out for the selected credit evaluation index, and the collected data is trained and debugged. Finally, the model is used for data validation and comparison to verify the results of the new algorithm.
+}
+% 关键字-{中文}{英文}
+\Keyword{
+    信用评价指标，二元Logistic回归，BP神经网络
+  }{
+    Credit evaluation indicators,Binary Logistic Regression,Back Propagation Neural Network
+}
+
+% 图标目录
+\Listfigtab{on} % 启用: on[默认]; 双标题：bi; 关闭: off;
+\iffalse
+% 缩写定义 按tabular环境或其他列表环境编写
+\Abbreviations{ \centering
+\begin{tabular}{cl}
+  $E$ & 能量 \\
+  $m$ & 质量 \\
+  $c$ & 光速 \\
+  $P$ & 概率 \\
+  $T$ & 时间 \\
+  $v$ & 速度 \\
+\end{tabular}
+}
+\fi
+
+\begin{document}
+
+%%=================================================================
+% 标题级别
+%--------------------
+% \chapter{第一章}
+% \section{1.1 小节}
+% \subsection{1.1.1 条}
+% \subsubsection{1.1.1.1}
+% \paragraph{1.1.1.1.1}
+% \subparagraph{1.1.1.1.1.1}
+%--------------------\part{title}
+%%=================================================================
+
+% 绪论
+\input{tex/chap_intro}
+
+% 相关基本理论
+\input{tex/chap_instruction}
+
+% 信用评价模型构建
+\input{tex/chap_sample}
+
+% 结果分析
+\input{tex/chap_analysis}
+
+% 总结
+\input{tex/chap_summary}
+
+% 参考文献
+% 手册中参考文献标准似乎并没有严格按照国标GBT7714-2015执行
+\Bib{bst/GBT7714-BUAA}{ref}
+%\bibliographystyle{gbt7714-numerical}
+%\bibliography{ref}
+% 附录
+%\input{tex/chap_appendix}
+
+% 攻读学位期间成果
+% \input{tex/chap_achievement}
+
+% 致谢
+\input{tex/chap_acknowledge}
+% 作者简介
+%\input{tex/chap_biography}
+
+%\vspace{5cm}
+
+\end{document}
